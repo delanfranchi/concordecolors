@@ -206,10 +206,6 @@ export class ThemeGenerator extends LitElement {
           </div>
         `
       )}
-      <div
-        class="palette-item hidden"
-        style="background-color:${this.tailwindClosestPrimary}"
-      ></div>
     </div>`;
   }
 
@@ -292,28 +288,28 @@ export class ThemeGenerator extends LitElement {
       const [colorKey] = statusColor;
       const color = chroma((defaultColors as any)[colorKey]);
       const hsl = color.hsl();
-      const h = Math.max(0.5, Math.min(hsl[0] + deltaH / 2.5, 355.9999));
+      const h = Math.max(1, Math.min(hsl[0] + deltaH /1.5, 359));
       const s = hsl[1] + deltaS / 2.5;
-      const l = Math.max(hsl[2] + deltaL / 2.5, 0.3);
+      const l = Math.max(hsl[2] + deltaL /1.5, 0.3);
       const newColor = chroma.hsl(h, s, l);
 
       // update the status colors
       this.statusColors[colorKey]["color"] = newColor.hex();
 
-      const shades: string[] = this._generateShades(newColor) as any;
+      const shades: string[] = this._generateShades(newColor) ;
       this._setShades(shades, this.statusColors[colorKey]["shades"]);
     });
 
     // update the primary shades
-    const primaryShades = this._generateShades(primaryColor) as any;
+    const primaryShades = this._generateShades(primaryColor) ;
     this._setShades(primaryShades, this.primaryShades);
 
     // update the neutral shades
-    const neutralShades = this._generateShades(chroma(this.neutral)) as any;
+    const neutralShades = this._generateShades(chroma(this.neutral)) ;
     this._setShades(neutralShades, this.neutralShades);
   }
 
-  private _generateShades(color: any): string {
+  private _generateShades(color: any): string[] {
     const [lighest, darkest] = [
       chroma(color).set("hsl.l", 0.95),
       chroma(color).set("hsl.l", 0.2),
@@ -322,7 +318,7 @@ export class ThemeGenerator extends LitElement {
     return chroma
       .scale([lighest, color, darkest])
       .correctLightness()
-      .colors(10) as any;
+      .colors(10) ;
   }
 
   private _setShades(shades: any, targetObject: any): void {
