@@ -1,0 +1,6 @@
+sonic-theme {
+  --sc-btn-rounded: 9999px;
+}
+body {
+  overflow-x: hidden;
+}
