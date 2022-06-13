@@ -8,9 +8,9 @@ export class SonicComponent extends LitElement {
   render() {
     return html`
       <div class="text-5xl font-bold mb-10">Preview</div>
-      <div class="grid grid-cols-2 gap-8">
+      <div class="grid grid-cols-[minmax(0,1.4fr)_minmax(0,2fr)] gap-8">
         <div>
-          <div>
+          <div class="flex gap-2 flex-wrap ">
             <sonic-button>Default</sonic-button>
             <sonic-button type="primary">Primary</sonic-button>
             <sonic-button type="neutral">Neutral</sonic-button>
@@ -20,7 +20,7 @@ export class SonicComponent extends LitElement {
             <sonic-button type="danger">Danger</sonic-button>
           </div>
           <sonic-divider></sonic-divider>
-          <div>
+          <div class="flex gap-2 flex-wrap ">
             <sonic-button variant="outline">Default</sonic-button>
             <sonic-button variant="outline" type="primary"
               >Primary</sonic-button
@@ -36,43 +36,46 @@ export class SonicComponent extends LitElement {
               >Success</sonic-button
             >
             <sonic-button variant="outline" type="danger">Danger</sonic-button>
-            <sonic-divider></sonic-divider>
-            <sonic-alert class="mb-2" background label="Lorem ipsum dolor">
-              This address is already in use.
-            </sonic-alert>
-            <sonic-alert
-              status="success"
-              class="mb-2"
-              background
-              label="Lorem ipsum dolor"
-            >
-              This address is already in use.
-            </sonic-alert>
-            <sonic-alert
-              status="error"
-              class="mb-2"
-              background
-              label="Lorem ipsum dolor"
-            >
-              This address is already in use.
-            </sonic-alert>
-            <sonic-alert
-              status="warning"
-              class="mb-2"
-              background
-              label="Lorem ipsum dolor"
-            >
-              This address is already in use.
-            </sonic-alert>
-            <sonic-alert
-              status="info"
-              class="mb-2"
-              background
-              label="Lorem ipsum dolor"
-            >
-              This address is already in use.
-            </sonic-alert>
           </div>
+
+          <sonic-divider
+            >Alerts <sonic-badge size="xs">+5</sonic-badge></sonic-divider
+          >
+          <sonic-alert class="mb-2" background label="Lorem ipsum dolor">
+            This address is already in use.
+          </sonic-alert>
+          <sonic-alert
+            status="success"
+            class="mb-2"
+            background
+            label="Lorem ipsum dolor"
+          >
+            This address is already in use.
+          </sonic-alert>
+          <sonic-alert
+            status="error"
+            class="mb-2"
+            background
+            label="Lorem ipsum dolor"
+          >
+            This address is already in use.
+          </sonic-alert>
+          <sonic-alert
+            status="warning"
+            class="mb-2"
+            background
+            label="Lorem ipsum dolor"
+          >
+            This address is already in use.
+          </sonic-alert>
+          <sonic-alert
+            status="info"
+            class="mb-2"
+            background
+            label="Lorem ipsum dolor"
+          >
+            This address is already in use.
+          </sonic-alert>
         </div>
         <sonic-div formDataProvider="creation_compte">
           <form

@@ -1,3 +1,5 @@
+import "@supersoniks/concorde/core";
+
 import { html, LitElement, css } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { tailwind } from "./js/sonic-tailwind.js";
@@ -53,6 +55,7 @@ export class SonicComponent extends LitElement {
 
   @state() hasPressedSpace: boolean = false;
   @query("sonic-theme-generator") themeGenerator: any;
+  @query("#themePreview") themePreview: any;
 
   render() {
     return html`
@@ -91,40 +94,6 @@ export class SonicComponent extends LitElement {
                   : ""}
               </div>
 
-              <sonic-divider label="More options"></sonic-divider>
-              <sonic-div
-                formDataProvider="customSettings"
-                class="grid grid-cols-2 gap-4"
-              >
-                <sonic-select size="sm" label="Background ">
-                  <option value="base">base</option>
-                  <option value="neutral-50">neutral-50</option>
-                  <option value="neutral-100">neutral-100</option>
-                  <option value="neutral-200">neutral-200</option>
-                  <option value="neutral-300">neutral-300</option>
-                  <option value="neutral-400">neutral-400</option>
-                  <option value="neutral-500">neutral-500</option>
-                  <option value="neutral-600">neutral-600</option>
-                  <option value="neutral-700">neutral-700</option>
-                  <option value="neutral-800">neutral-800</option>
-                  <option value="neutral-900">neutral-900</option>
-                </sonic-select>
-                <sonic-select size="sm" label="Content color">
-                  <option value="base">base</option>
-                  <option value="neutral-50">neutral-50</option>
-                  <option value="neutral-100">neutral-100</option>
-                  <option value="neutral-200">neutral-200</option>
-                  <option value="neutral-300">neutral-300</option>
-                  <option value="neutral-400">neutral-400</option>
-                  <option value="neutral-500">neutral-500</option>
-                  <option value="neutral-600">neutral-600</option>
-                  <option value="neutral-700">neutral-700</option>
-                  <option value="neutral-800">neutral-800</option>
-                  <option value="neutral-900" selected>neutral-900</option>
-                </sonic-select>
-              </sonic-div>
-              <sonic-divider label="Export"></sonic-divider>
-
               <div class="mt-6">
                 <sonic-div formDataProvider="themeSettings" class="mb-3 block">
                   <sonic-button
@@ -143,6 +112,7 @@ export class SonicComponent extends LitElement {
                     Tailwind</sonic-button
                   >
                 </sonic-div>
+
                 <sonic-textarea
                   .value="${JSON.stringify(
                     this.themeGenerator?.statusColors,
@@ -154,8 +124,17 @@ export class SonicComponent extends LitElement {
             </header>
           </div>
           <div>
-            <sonic-theme-generator></sonic-theme-generator>
-            <sonic-theme-preview class="mt-12 block"></sonic-theme-preview>
+            <sonic-theme-generator
+              @newTheme=${this._handleNewTheme}
+            ></sonic-theme-generator>
+            <sonic-theme
+              id="themePreview"
+              background
+              color
+              class="p-6 py-10 rounded-lg mt-12"
+            >
+              <sonic-theme-preview class=" block"></sonic-theme-preview>
+            </sonic-theme>
           </div>
         </div>
       </sonic-theme>
@@ -175,4 +154,11 @@ export class SonicComponent extends LitElement {
       }
     });
   }
+
+  _handleNewTheme(): void {
+    if (this.themeGenerator?.themeCSS != null) {
+      this.themePreview.setAttribute("style", this.themeGenerator?.themeCSS);
+    }
+  }
 }
+// this.dispatchEvent(new Event("myClick"));
