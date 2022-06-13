@@ -192,7 +192,7 @@ export class ThemeGenerator extends LitElement {
             ${Object.keys(this.theme["primary"]).map((shade: any, index) => {
               if (shade != "DEFAULT" && shade != "content") {
                 return html` <div
-                  class="shade-${index}00"
+                  class="shade-${index + 1}00"
                   style="background-color:${this.theme["primary"][shade]}"
                 ></div>`;
               } else {
@@ -217,7 +217,7 @@ export class ThemeGenerator extends LitElement {
             ${Object.keys(this.theme["neutral"]).map((shade: any, index) => {
               if (shade != "DEFAULT" && shade != "content") {
                 return html` <div
-                  class="shade-${index}00"
+                  class="shade-${index + 1}00"
                   style="background-color:${this.theme["neutral"][shade]}"
                 ></div>`;
               } else {
@@ -244,7 +244,7 @@ export class ThemeGenerator extends LitElement {
                 ${Object.keys(this.theme[status]).map((shade: any, index) => {
                   if (shade != "DEFAULT" && shade != "content") {
                     return html` <div
-                      class="shade-${index}00"
+                      class="shade-${index + 1}00"
                       style="background-color:${this.theme[status][shade]}"
                     ></div>`;
                   } else {
