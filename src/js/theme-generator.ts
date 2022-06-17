@@ -4,7 +4,7 @@ import { customElement, property, state } from "lit/decorators.js";
 import { tailwindColors } from "./tailwind-colors.js";
 import { tailwind } from "./sonic-tailwind.js";
 
-import chroma from "chroma-js";
+import chroma, { Color } from "chroma-js";
 
 const defaultColors = {
   primary: "#0070f3",
@@ -13,8 +13,13 @@ const defaultColors = {
   warning: "#fb923c",
   info: "#3b82f6",
   base: "#fff",
-  dark: "#000",
-  gray: "#6b7280",
+  maxNeutral: "#111827",
+  neutral: "#1f2937",
+};
+
+type paletteOptions = {
+  shade: boolean;
+  input: boolean;
 };
 
 @customElement("sonic-theme-generator")
@@ -36,50 +41,60 @@ export class ThemeGenerator extends LitElement {
 
       .palette-main {
         display: flex;
-        border-radius: 1rem;
+        border-radius: 0.8rem;
         width: 100%;
-        align-items: center;
-        justify-content: center;
         flex-grow: 1;
         position: relative;
-        aspect-ratio: 4/3;
+        box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
       }
-      .palette-main-xs {
-        aspect-ratio: 11/4;
+
+      .palette-main:focus-within {
+        box-shadow: 0 0 0 0.2rem #000;
       }
 
       .text,
       .palette-input {
-        padding: 1rem;
         all: unset;
+        padding: 2rem 1rem;
         text-align: center;
         appearance: none;
         color: #666;
         border-radius: 1rem;
         font-family: monospace;
         font-size: 2rem;
-        position: absolute;
         top: 0;
         left: 0;
         height: 100%;
         width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         line-height: 0.85;
         z-index: 2;
+        color: inherit;
         overflow: hidden;
       }
 
-      .palette-input:focus,
-      .palette-input:hover {
+      input[type="color"] {
+        all: unset;
+        opacity: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        appearance: none;
+        z-index: 100;
         cursor: pointer;
-        box-shadow: 0 0 0 0.4rem inset #000;
       }
 
       input::selection {
         opacity: 1;
         background-color: #ccc;
+      }
+      .legend {
+        font-size:.85rem;
+        font-family:consolas;
+        position: absolute;
+        bottom: 0.65rem;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0.5;
       }
 
       .hidden {
@@ -101,10 +116,10 @@ export class ThemeGenerator extends LitElement {
     `,
   ];
   // e298a3
-  @property({ type: String }) primary = "#bab96e";
-  @property({ type: String }) neutral = defaultColors.gray;
-  @property({ type: String }) base = "#ffffff";
-  @property({ type: String }) maxContrastNeutral = "#111111";
+  @property({ type: String }) primary = chroma.random();
+  @property({ type: String }) neutral = defaultColors.neutral;
+  @property({ type: String }) base = defaultColors.base;
+  @property({ type: String }) maxContrastNeutral = defaultColors.maxNeutral;
   @property({ type: Number }) contrastLuminance = 0.002;
   @property({ type: String }) themeCSS = "";
 
@@ -139,122 +154,59 @@ export class ThemeGenerator extends LitElement {
     },
   };
 
+  shadesHtml(colorName: string) {
+    return html`<div class="shades">
+      ${Object.keys(this.theme[colorName])?.map((shade: any, index) => {
+        if (shade != "DEFAULT" && shade != "content") {
+          return html`<div
+            class="shade-${index + 1}00"
+            style="background-color:${this.theme[colorName][shade]}"
+          ></div>`;
+        } else {
+          return "";
+        }
+      })}
+    </div>`;
+  }
+
+  paletteHtml(colorName: string, options: paletteOptions) {
+    const  backgroundColor = (this as any)[colorName] || this.theme[colorName].DEFAULT;
+    const contentColor = this.theme[colorName]?.content || "#ffffff";
+    const text = this.theme[colorName]?.DEFAULT || (this as any)[colorName];
+
+    return html`<div class="palette-item">
+      <div
+        class="palette-main"
+        style="background-color:${backgroundColor};color:${contentColor}"
+      >
+        ${options.input
+          ? html`<input
+              data-color=${colorName}
+              .value=${(this as any)[colorName]}
+              type="color"
+              @input=${this._commitValue}
+            />`
+          : ""}
+        <div class="text">${text}</div>
+        <span class="legend">${colorName}</span>
+      </div>
+      ${options.shade ? this.shadesHtml(colorName) : ""}
+    </div>`;
+  }
+
   render() {
     const statusColor = this._getStatusColor();
     return html`
-      <div class="palette grid grid-cols-3 gap-8 items-start">
-        <div class="palette-item">
-          <div
-            class="palette-main palette-main-xs"
-            style="background-color:${this.base}"
-          >
-            <input
-              id="base"
-              class="palette-input"
-              .value="${this.base}"
-              @input=${this._commitValue}
-              @blur=${this._cleanInputValue}
-              @focus=${this._handleFocus}
-            />
-            <span class="legend">base</span>
-          </div>
-
-          <div
-            class="palette-main palette-main-xs"
-            style="background-color:${this.maxContrastNeutral}"
-          >
-            <input
-              id="maxContrastNeutral"
-              class="palette-input"
-              .value="${this.maxContrastNeutral}"
-              @input=${this._commitValue}
-              @blur=${this._cleanInputValue}
-              @focus=${this._handleFocus}
-            />
-            <span class="legend">Maximum contrast neutral</span>
-          </div>
-        </div>
-
-        <div class="palette-item">
-          <div class="palette-main" style="background-color:${this.primary}">
-            <input
-              id="primary"
-              class="palette-input"
-              .value="${this.primary}"
-              style="color:${this.theme["primary"]["content"]}"
-              @input=${this._commitValue}
-              @blur=${this._cleanInputValue}
-              @focus=${this._handleFocus}
-            />
-          </div>
-
-          <div class="shades">
-            ${Object.keys(this.theme["primary"]).map((shade: any, index) => {
-              if (shade != "DEFAULT" && shade != "content") {
-                return html` <div
-                  class="shade-${index + 1}00"
-                  style="background-color:${this.theme["primary"][shade]}"
-                ></div>`;
-              } else {
-                return "";
-              }
-            })}
-          </div>
-        </div>
-
-        <div class="palette-item ">
-          <div class="palette-main" style="background-color:${this.neutral}">
-            <input
-              id="neutral"
-              class="palette-input"
-              .value="${this.neutral}"
-              style="color:${this.theme["neutral"]["content"]}"
-              @input=${this._commitValue}
-              @focus=${this._handleFocus}
-            />
-          </div>
-          <div class="shades">
-            ${Object.keys(this.theme["neutral"]).map((shade: any, index) => {
-              if (shade != "DEFAULT" && shade != "content") {
-                return html` <div
-                  class="shade-${index + 1}00"
-                  style="background-color:${this.theme["neutral"][shade]}"
-                ></div>`;
-              } else {
-                return "";
-              }
-            })}
-          </div>
-        </div>
+      <div class="palette grid grid-cols-4 gap-8 items-start">
+        ${this.paletteHtml("primary", { shade: true, input: true })}
+        ${this.paletteHtml("base", { shade: false, input: true })}
+        ${this.paletteHtml("neutral", { shade: true, input: true })}
+        ${this.paletteHtml("maxContrastNeutral", { shade: false, input: true })}
       </div>
-
-      <div class="grid grid-cols-4 gap-8 mt-8">
+      <div class="grid grid-cols-4 gap-8 mt-8 items-start">
         ${Object.keys(statusColor).map(
           (status: any) => html`
-            <div class="palette-item">
-              <div
-                class="palette-main"
-                style="background-color:${this.theme[status].DEFAULT}"
-              >
-                <div class="text" style="color:${this.theme[status].content}">
-                  ${this.theme[status].DEFAULT}
-                </div>
-              </div>
-              <div class="shades">
-                ${Object.keys(this.theme[status]).map((shade: any, index) => {
-                  if (shade != "DEFAULT" && shade != "content") {
-                    return html` <div
-                      class="shade-${index + 1}00"
-                      style="background-color:${this.theme[status][shade]}"
-                    ></div>`;
-                  } else {
-                    return "";
-                  }
-                })}
-              </div>
-            </div>
-          `
-        )}
+            ${this.paletteHtml(status, { shade: true, input: false }) }`)}
       </div>
     `;
   }
@@ -264,15 +216,15 @@ export class ThemeGenerator extends LitElement {
     this._generateTheme();
   }
 
-  private _randomTheme(): void {
-    this.primary = chroma.random().hex();
+  _randomTheme(): void {
+    this.primary = chroma.random();
     this._generateTheme();
   }
 
   // set property value from input value based on id
   private _commitValue(e: Event): void {
     const input = e.target as HTMLInputElement;
-    const id = input.id;
+    const id = input.getAttribute("data-color") as string;
     const value = input.value.trim();
 
     const previousValue = (this as any)[id];
@@ -282,17 +234,6 @@ export class ThemeGenerator extends LitElement {
     }
   }
 
-  // clean input value
-  private _cleanInputValue(e: Event): void {
-    const input = e.target as HTMLInputElement;
-    input.value = input.value.trim();
-  }
-
-  // Select all text on focus
-  private _handleFocus(e: Event): void {
-    const input = e.target as HTMLInputElement;
-    input.select();
-  }
 
   private _getStatusColor() {
     return Object.keys(this.theme)
@@ -303,6 +244,7 @@ export class ThemeGenerator extends LitElement {
         });
       }, {});
   }
+
   private _generateTheme() {
     /**
      * For primary and neutral colors
@@ -321,6 +263,7 @@ export class ThemeGenerator extends LitElement {
       return;
 
     const primaryColor = chroma(this.primary);
+    const neutralColor = chroma(this.neutral);
 
     let colorInfos = [];
     for (const colorName of Object.entries(tailwindColors)) {
@@ -365,9 +308,9 @@ export class ThemeGenerator extends LitElement {
       const [colorKey] = statusColor;
       const color = chroma((defaultColors as any)[colorKey]);
       const hsl = color.hsl();
-      const threshold = 0.5;
+      const threshold = 0.6;
 
-      // Modification de la hue. On ne modifie pas plus de X
+      // Modification de la hue. On ne modifie pas plus de ...
       const maxHrotation =
         deltaH < 0 ? Math.max(-15, deltaH) : Math.min(15, deltaH);
 
@@ -379,27 +322,25 @@ export class ThemeGenerator extends LitElement {
 
       // update the status colors
       this.theme[colorKey]["DEFAULT"] = newStatusColor;
-
       const shades: string[] = this._generateShades(newStatusColor);
       this._setShades(shades, this.theme[colorKey]);
-      this._setContentColor(newStatusColor, this.theme[colorKey]);
+      this._setContentColor(chroma(newStatusColor), this.theme[colorKey]);
     });
 
     // update the primary shades
     const primaryShades = this._generateShades(primaryColor);
     this._setShades(primaryShades, this.theme["primary"]);
-    this._setContentColor(this.primary, this.theme["primary"]);
+    this._setContentColor(primaryColor, this.theme["primary"]);
     this.theme["primary"]["DEFAULT"] = this.primary;
 
     // update the neutral shades
-    const neutralShades = this._generateShades(chroma(this.neutral));
+    const neutralShades = this._generateShades(chroma(neutralColor));
     this._setShades(neutralShades, this.theme["neutral"]);
-    this._setContentColor(this.neutral, this.theme["neutral"]);
+    this._setContentColor(neutralColor, this.theme["neutral"]);
 
-    // this.theme["neutral"]["DEFAULT"] = this.neutral;
+    this.theme["neutral"]["DEFAULT"] = this.neutral;
     this.theme["base-content"] = this.neutral;
     this.theme["base"] = this.base;
-    console.log(this.base);
 
     // Generate and set css
     this._setThemeCSS(this.theme);
@@ -409,12 +350,12 @@ export class ThemeGenerator extends LitElement {
     );
   }
 
-  private _setContentColor(color: string, targetObject: any): void {
+  private _setContentColor(color: Color, targetObject: any): void {
     // Get contrast color for text from the new color
-    if (chroma(color).luminance() < 0.2) {
+    if (chroma(color).luminance() < 0.4) {
       targetObject["content"] = defaultColors.base;
     } else {
-      targetObject["content"] = defaultColors.dark;
+      targetObject["content"] = defaultColors.maxNeutral;
     }
   }
 
@@ -427,7 +368,7 @@ export class ThemeGenerator extends LitElement {
     return chroma
       .scale([this.base, color, this.maxContrastNeutral])
       .mode("lab")
-      .padding([0.05, 0.2])
+      .padding([0.03, 0.2])
       .correctLightness()
       .colors(9);
   }
@@ -467,7 +408,7 @@ export class ThemeGenerator extends LitElement {
 
     this.themeCSS = cssRules.join(";");
 
-    // console.log(cssRules);
+    console.log(cssRules);
     // console.log(css);
   }
 }

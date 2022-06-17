@@ -1,4 +1,4 @@
-import "@supersoniks/concorde/core";
+import "@supersoniks/concorde/ui";
 
 import { html, LitElement, css } from "lit";
 import { customElement, state } from "lit/decorators.js";
@@ -16,8 +16,11 @@ export class SonicComponent extends LitElement {
     css`
       :host {
         display: block;
-        padding: 4.5rem 4rem;
         min-height: 100vh;
+      }
+
+      sonic-theme {
+        padding: 1rem 4rem;
       }
 
       .btn-container {
@@ -55,27 +58,20 @@ export class SonicComponent extends LitElement {
 
   @state() hasPressedSpace: boolean = false;
   @query("sonic-theme-generator") themeGenerator: any;
-  @query("#themePreview") themePreview: any;
+  @query("sonic-theme") themePreview: any;
 
   render() {
     return html`
-      <div class="contents"></div>
-      <sonic-theme theme="auto">
-        <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,3.5fr)] gap-16">
-          <div>
-            <header class="sticky top-0">
-              <div class="font-bold mb-3 leading-[.8em] text-7xl gap-2">
+      <sonic-theme theme="auto" background color>
+        <div class="grid gap-8">
+            <header class=" flex gap-4  items-center">
+              <div class="font-bold mb-3 leading-[.8em] text-5xl gap-4">
                 concorde colors
               </div>
-              <p class="text-lg leading-tight mb-4">
-                Semantic colors for Concorde Design System, based on your
-                primary color and Tailwind color scheme.
-              </p>
               <div class="flex gap-3 items-center">
                 <sonic-button
                   type="primary"
                   variant="outline"
-                  size="lg"
                   @click=${() => {
                     this.themeGenerator?._randomTheme();
                   }}
@@ -93,49 +89,11 @@ export class SonicComponent extends LitElement {
                     </div>`
                   : ""}
               </div>
-
-              <div class="mt-6">
-                <sonic-div formDataProvider="themeSettings" class="mb-3 block">
-                  <sonic-button
-                    radio
-                    name="export"
-                    value="concorde"
-                    variant="ghost"
-                    >Concorde</sonic-button
-                  >
-                  <sonic-button
-                    radio
-                    name="export"
-                    value="tailwind"
-                    variant="ghost"
-                  >
-                    Tailwind</sonic-button
-                  >
-                </sonic-div>
-
-                <sonic-textarea
-                  .value="${JSON.stringify(
-                    this.themeGenerator?.statusColors,
-                    null,
-                    2
-                  )}"
-                ></sonic-textarea>
-              </div>
             </header>
-          </div>
-          <div>
             <sonic-theme-generator
               @newTheme=${this._handleNewTheme}
             ></sonic-theme-generator>
-            <sonic-theme
-              id="themePreview"
-              background
-              color
-              class="p-6 py-10 rounded-lg mt-12"
-            >
-              <sonic-theme-preview class=" block"></sonic-theme-preview>
-            </sonic-theme>
-          </div>
+            <sonic-theme-preview class="mt-12 block"></sonic-theme-preview>
         </div>
       </sonic-theme>
     `;

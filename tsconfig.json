@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "module": "ESNext",
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "declaration": true,
     "emitDeclarationOnly": true,
     "outDir": "./types",
@@ -16,8 +20,226 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "useDefineForClassFields": false,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@supersoniks/concorde/functional/date": [
+        "../node_modules/@supersoniks/concorde/core/components/functional/date/date.js"
+      ],
+      "@supersoniks/concorde/functional/example": [
+        "../node_modules/@supersoniks/concorde/core/components/functional/example/example.js"
+      ],
+      "@supersoniks/concorde/functional/fetch": [
+        "../node_modules/@supersoniks/concorde/core/components/functional/fetch/fetch.js"
+      ],
+      "@supersoniks/concorde/functional": [
+        "../node_modules/@supersoniks/concorde/core/components/functional/functional.js"
+      ],
+      "@supersoniks/concorde/functional/if": [
+        "../node_modules/@supersoniks/concorde/core/components/functional/if/if.js"
+      ],
+      "@supersoniks/concorde/functional/list": [
+        "../node_modules/@supersoniks/concorde/core/components/functional/list/list.js"
+      ],
+      "@supersoniks/concorde/functional/queue": [
+        "../node_modules/@supersoniks/concorde/core/components/functional/queue/queue.js"
+      ],
+      "@supersoniks/concorde/functional/router/redirect": [
+        "../node_modules/@supersoniks/concorde/core/components/functional/router/redirect.js"
+      ],
+      "@supersoniks/concorde/functional/router": [
+        "../node_modules/@supersoniks/concorde/core/components/functional/router/router.js"
+      ],
+      "@supersoniks/concorde/functional/states": [
+        "../node_modules/@supersoniks/concorde/core/components/functional/states/states.js"
+      ],
+      "@supersoniks/concorde/functional/submit": [
+        "../node_modules/@supersoniks/concorde/core/components/functional/submit/submit.js"
+      ],
+      "@supersoniks/concorde/functional/subscriber": [
+        "../node_modules/@supersoniks/concorde/core/components/functional/subscriber/subscriber.js"
+      ],
+      "@supersoniks/concorde/ui/alert": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/alert/alert.js"
+      ],
+      "@supersoniks/concorde/ui/badge": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/badge/badge.js"
+      ],
+      "@supersoniks/concorde/ui/button": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/button/button.js"
+      ],
+      "@supersoniks/concorde/ui/divider": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/divider/divider.js"
+      ],
+      "@supersoniks/concorde/ui/form/checkbox": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/form/checkbox/checkbox.js"
+      ],
+      "@supersoniks/concorde/ui/form/css/form-control": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/form/css/form-control.js"
+      ],
+      "@supersoniks/concorde/ui/form/fieldset": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/form/fieldset/fieldset.js"
+      ],
+      "@supersoniks/concorde/ui/form/fieldset/legend": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/form/fieldset/legend.js"
+      ],
+      "@supersoniks/concorde/ui/form/form-layout/form-actions": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/form/form-layout/form-actions.js"
+      ],
+      "@supersoniks/concorde/ui/form/form-layout/form-layout": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/form/form-layout/form-layout.js"
+      ],
+      "@supersoniks/concorde/ui/form/input": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/form/input/input.js"
+      ],
+      "@supersoniks/concorde/ui/form/radio": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/form/radio/radio.js"
+      ],
+      "@supersoniks/concorde/ui/form/select": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/form/select/select.js"
+      ],
+      "@supersoniks/concorde/ui/form/textarea": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/form/textarea/textarea.js"
+      ],
+      "@supersoniks/concorde/ui/group": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/group/group.js"
+      ],
+      "@supersoniks/concorde/ui/icon": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/icon/icon.js"
+      ],
+      "@supersoniks/concorde/ui/icon/icons": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/icon/icons.js"
+      ],
+      "@supersoniks/concorde/ui/icon/iconson": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/icon/icons.json"
+      ],
+      "@supersoniks/concorde/ui/image": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/image/image.js"
+      ],
+      "@supersoniks/concorde/ui/link": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/link/link.js"
+      ],
+      "@supersoniks/concorde/ui/loader": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/loader/loader.js"
+      ],
+      "@supersoniks/concorde/ui/loader/styles/fixed": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/loader/styles/fixed.js"
+      ],
+      "@supersoniks/concorde/ui/loader/styles/inline": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/loader/styles/inline.js"
+      ],
+      "@supersoniks/concorde/ui/menu/menu-item": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/menu/menu-item.js"
+      ],
+      "@supersoniks/concorde/ui/menu": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/menu/menu.js"
+      ],
+      "@supersoniks/concorde/ui/modal/modal-actions": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/modal/modal-actions.js"
+      ],
+      "@supersoniks/concorde/ui/modal/modal-close": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/modal/modal-close.js"
+      ],
+      "@supersoniks/concorde/ui/modal/modal-content": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/modal/modal-content.js"
+      ],
+      "@supersoniks/concorde/ui/modal/modal-subtitle": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/modal/modal-subtitle.js"
+      ],
+      "@supersoniks/concorde/ui/modal/modal-title": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/modal/modal-title.js"
+      ],
+      "@supersoniks/concorde/ui/modal": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/modal/modal.js"
+      ],
+      "@supersoniks/concorde/ui/pop": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/pop/pop.js"
+      ],
+      "@supersoniks/concorde/ui/tabs/tab": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/tabs/tab.js"
+      ],
+      "@supersoniks/concorde/ui/tabs": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/tabs/tabs.js"
+      ],
+      "@supersoniks/concorde/ui/taxonomy": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/taxonomy/taxonomy.js"
+      ],
+      "@supersoniks/concorde/ui/theme/theme-collection/core-variables": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/theme/theme-collection/core-variables.js"
+      ],
+      "@supersoniks/concorde/ui/theme/theme-collection/dark": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/theme/theme-collection/dark.js"
+      ],
+      "@supersoniks/concorde/ui/theme/theme-collection/light": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/theme/theme-collection/light.js"
+      ],
+      "@supersoniks/concorde/ui/theme": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/theme/theme.js"
+      ],
+      "@supersoniks/concorde/ui/toast/message-subscriber": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/toast/message-subscriber.js"
+      ],
+      "@supersoniks/concorde/ui/toast": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/toast/toast.js"
+      ],
+      "@supersoniks/concorde/ui/tooltip": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/tooltip/tooltip.js"
+      ],
+      "@supersoniks/concorde/ui": [
+        "../node_modules/@supersoniks/concorde/core/components/ui/ui.js"
+      ],
+      "ites/concordecolors/node_modules/@supersoniks/concorde/core": [
+        "../node_modules/@supersoniks/concorde/core/core.js"
+      ],
+      "@supersoniks/concorde/mixins/Fetcher": [
+        "../node_modules/@supersoniks/concorde/core/mixins/Fetcher.js"
+      ],
+      "@supersoniks/concorde/mixins/FormCheckable": [
+        "../node_modules/@supersoniks/concorde/core/mixins/FormCheckable.js"
+      ],
+      "@supersoniks/concorde/mixins/FormElement": [
+        "../node_modules/@supersoniks/concorde/core/mixins/FormElement.js"
+      ],
+      "@supersoniks/concorde/mixins/FormInput": [
+        "../node_modules/@supersoniks/concorde/core/mixins/FormInput.js"
+      ],
+      "@supersoniks/concorde/mixins/Subscriber": [
+        "../node_modules/@supersoniks/concorde/core/mixins/Subscriber.js"
+      ],
+      "@supersoniks/concorde/mixins/TemplatesContainer": [
+        "../node_modules/@supersoniks/concorde/core/mixins/TemplatesContainer.js"
+      ],
+      "@supersoniks/concorde/mixins": [
+        "../node_modules/@supersoniks/concorde/core/mixins/mixins.js"
+      ],
+      "@supersoniks/concorde/utils/Arrays": [
+        "../node_modules/@supersoniks/concorde/core/utils/Arrays.js"
+      ],
+      "@supersoniks/concorde/utils/DataBindObserver": [
+        "../node_modules/@supersoniks/concorde/core/utils/DataBindObserver.js"
+      ],
+      "@supersoniks/concorde/utils/Format": [
+        "../node_modules/@supersoniks/concorde/core/utils/Format.js"
+      ],
+      "@supersoniks/concorde/utils/HTML": [
+        "../node_modules/@supersoniks/concorde/core/utils/HTML.js"
+      ],
+      "@supersoniks/concorde/utils/LocationHandler": [
+        "../node_modules/@supersoniks/concorde/core/utils/LocationHandler.js"
+      ],
+      "@supersoniks/concorde/utils/Objects": [
+        "../node_modules/@supersoniks/concorde/core/utils/Objects.js"
+      ],
+      "@supersoniks/concorde/utils/api": [
+        "../node_modules/@supersoniks/concorde/core/utils/api.js"
+      ]
+    }
   },
-  "include": ["src/**/*.ts"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": [
+    "src/**/*.ts"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }

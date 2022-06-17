@@ -7,9 +7,8 @@ export class SonicComponent extends LitElement {
   static styles = [tailwind];
   render() {
     return html`
-      <div class="text-5xl font-bold mb-10">Preview</div>
-      <div class="grid grid-cols-[minmax(0,1.4fr)_minmax(0,2fr)] gap-8">
-        <div>
+      <div class="grid grid-cols-[minmax(0,2fr)_minmax(0,1.5fr)] gap-10">
+        <div class="pt-10">
           <div class="flex gap-2 flex-wrap ">
             <sonic-button>Default</sonic-button>
             <sonic-button type="primary">Primary</sonic-button>
@@ -173,7 +172,7 @@ export class SonicComponent extends LitElement {
               </sonic-form-layout>
             </sonic-fieldset>
 
-            <div class="flex items-center">
+            <div class="flex gap-3 items-center">
               <sonic-button submit type="primary">
                 <sonic-icon name="check"></sonic-icon>
                 S'inscrire
@@ -189,30 +188,6 @@ export class SonicComponent extends LitElement {
             </div>
           </form>
 
-          <sonic-div
-            dataProvider="creation_compte"
-            class="my-6 rounded-lg text-neutral-400"
-          >
-            Résumé des informations : <br />
-            <div class="text-lg">
-              <span data-bind ::inner-html="$nom" class="font-bold"></span>
-              <span data-bind ::inner-html="$prenom"></span>
-            </div>
-            <div class="text-lg">
-              <span data-bind ::inner-html="$sexe"></span>
-              <span data-bind ::inner-html="$date_naissance"></span>
-            </div>
-            <div class="mt-3">
-              <span data-bind ::inner-html="$email"></span>
-              <span
-                data-bind
-                ::inner-html="($email_confirmation)"
-                class="text-sm text-neutral-400"
-              ></span>
-            </div>
-            <div data-bind ::inner-html="$cp"></div>
-            <div data-bind ::inner-html="$ville"></div>
-          </sonic-div>
         </sonic-div>
       </div>
     `;
