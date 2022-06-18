@@ -38,7 +38,7 @@ export class SonicComponent extends LitElement {
           </div>
 
           <sonic-divider
-            >Alerts <sonic-badge size="xs">+5</sonic-badge></sonic-divider
+            >Alerts <sonic-badge type="danger" size="xs">+5</sonic-badge></sonic-divider
           >
           <sonic-alert class="mb-2" background label="Lorem ipsum dolor">
             This address is already in use.

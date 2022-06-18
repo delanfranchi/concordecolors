@@ -8,7 +8,7 @@ import chroma, { Color } from "chroma-js";
 
 const defaultColors = {
   primary: "#0070f3",
-  danger: "#e11d48",
+  danger: "#dc2626",
   success: "#10b981",
   warning: "#fb923c",
   info: "#3b82f6",
@@ -88,8 +88,8 @@ export class ThemeGenerator extends LitElement {
         background-color: #ccc;
       }
       .legend {
-        font-size:.85rem;
-        font-family:consolas;
+        font-size: 0.85rem;
+        font-family: consolas;
         position: absolute;
         bottom: 0.65rem;
         left: 50%;
@@ -157,9 +157,11 @@ export class ThemeGenerator extends LitElement {
   shadesHtml(colorName: string) {
     return html`<div class="shades">
       ${Object.keys(this.theme[colorName])?.map((shade: any, index) => {
+        const keyName = index == 0 ? "50" : index + "00";
+
         if (shade != "DEFAULT" && shade != "content") {
           return html`<div
-            class="shade-${index + 1}00"
+            class="shade-${keyName}"
             style="background-color:${this.theme[colorName][shade]}"
           ></div>`;
         } else {
@@ -170,8 +172,18 @@ export class ThemeGenerator extends LitElement {
   }
 
   paletteHtml(colorName: string, options: paletteOptions) {
-    const  backgroundColor = (this as any)[colorName] || this.theme[colorName].DEFAULT;
-    const contentColor = this.theme[colorName]?.content || "#ffffff";
+    const backgroundColor =
+      (this as any)[colorName] || this.theme[colorName].DEFAULT;
+
+    let contentColor = this.theme[colorName]?.content || "#ffffff";
+    if (colorName == "base") {
+      contentColor = this.neutral;
+    } else if (colorName == "maxContrastNeutral") {
+      contentColor = this.base;
+    } else if (colorName == "neutral") {
+      contentColor = this.base;
+    }
+
     const text = this.theme[colorName]?.DEFAULT || (this as any)[colorName];
 
     return html`<div class="palette-item">
@@ -205,8 +217,11 @@ export class ThemeGenerator extends LitElement {
       </div>
       <div class="grid grid-cols-4 gap-8 mt-8 items-start">
         ${Object.keys(statusColor).map(
-          (status: any) => html`
-            ${this.paletteHtml(status, { shade: true, input: false }) }`)}
+          (status: any) => html` ${this.paletteHtml(status, {
+            shade: true,
+            input: false,
+          })}`
+        )}
       </div>
     `;
   }
@@ -233,7 +248,6 @@ export class ThemeGenerator extends LitElement {
       this._generateTheme();
     }
   }
-
 
   private _getStatusColor() {
     return Object.keys(this.theme)
@@ -318,10 +332,10 @@ export class ThemeGenerator extends LitElement {
       const s = hsl[1] + deltaS * threshold;
       const l = hsl[2];
 
-      const newStatusColor = chroma.hsl(h, s, l).hex();
+      const newStatusColor: Color = chroma.hsl(h, s, l);
 
       // update the status colors
-      this.theme[colorKey]["DEFAULT"] = newStatusColor;
+      this.theme[colorKey]["DEFAULT"] = newStatusColor.hex();
       const shades: string[] = this._generateShades(newStatusColor);
       this._setShades(shades, this.theme[colorKey]);
       this._setContentColor(chroma(newStatusColor), this.theme[colorKey]);
@@ -334,7 +348,7 @@ export class ThemeGenerator extends LitElement {
     this.theme["primary"]["DEFAULT"] = this.primary;
 
     // update the neutral shades
-    const neutralShades = this._generateShades(chroma(neutralColor));
+    const neutralShades = this._generateShades(chroma(neutralColor), true);
     this._setShades(neutralShades, this.theme["neutral"]);
     this._setContentColor(neutralColor, this.theme["neutral"]);
 
@@ -359,25 +373,34 @@ export class ThemeGenerator extends LitElement {
     }
   }
 
-  private _generateShades(color: any): string[] {
-    // const [lighest, darkest] = [
-    //   chroma(color).set("hsl.l", 0.95),
-    //   chroma(color).set("hsl.l", 0.2),
-    // ];
+  private _generateShades(color: Color, isNeutral: boolean = false): string[] {
+    const baseLuminance = chroma(this.base).luminance();
+    let minPadding = Math.min(0.3, 0.15 * (1 + (1 - baseLuminance)));
+    let maxPadding = 0.2;
 
-    return chroma
+    if (isNeutral == true) {
+      maxPadding = 0;
+      minPadding = Math.min(0.08, 0.04 * (1 + (1 - baseLuminance)));
+    }
+
+    const shades = chroma
       .scale([this.base, color, this.maxContrastNeutral])
       .mode("lab")
-      .padding([0.03, 0.2])
       .correctLightness()
+      .padding([minPadding, maxPadding])
       .colors(9);
+
+    const fiftyShade = chroma.mix(this.base, shades[0], 0.6).hex();
+    shades.unshift(fiftyShade);
+
+    return shades;
   }
 
   private _setShades(shades: any, targetObject: any): void {
     if (shades.length > 0) {
       shades.forEach((shade: string, index: number) => {
-        // const keyName = index == 0 ? "50" : index + "00";
-        const keyName = index + 1 + "00";
+        const keyName = index == 0 ? "50" : index + "00";
+        // const keyName = index + 1 + "00";
         targetObject[keyName] = shade;
       });
     }
@@ -405,11 +428,7 @@ export class ThemeGenerator extends LitElement {
         cssRules.push(`--sc-${colorName[0]}: ${colorName[1]};`);
       }
     }
-
     this.themeCSS = cssRules.join(";");
-
-    console.log(cssRules);
-    // console.log(css);
   }
 }
 
