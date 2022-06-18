@@ -1,7 +1,12 @@
 import { LitElement } from "lit";
+import chroma from "chroma-js";
+declare type paletteOptions = {
+    shade: boolean;
+    input: boolean;
+};
 export declare class ThemeGenerator extends LitElement {
     static styles: import("lit").CSSResult[];
-    primary: string;
+    primary: chroma.Color;
     neutral: string;
     base: string;
     maxContrastNeutral: string;
@@ -10,13 +15,11 @@ export declare class ThemeGenerator extends LitElement {
     tailwindClosestPrimary: string;
     theme: any;
     shadesHtml(colorName: string): import("lit-html").TemplateResult<1>;
-    paletteHtml(colorName: string, shade?: boolean): import("lit-html").TemplateResult<1>;
+    paletteHtml(colorName: string, options: paletteOptions): import("lit-html").TemplateResult<1>;
     render(): import("lit-html").TemplateResult<1>;
     connectedCallback(): void;
     _randomTheme(): void;
     private _commitValue;
-    private _cleanInputValue;
-    private _handleFocus;
     private _getStatusColor;
     private _generateTheme;
     private _setContentColor;
@@ -29,3 +32,4 @@ declare global {
         "sonic-theme-generator": ThemeGenerator;
     }
 }
+export {};

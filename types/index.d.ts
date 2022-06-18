@@ -1,4 +1,4 @@
-import "@supersoniks/concorde/ui/button";
+import "@supersoniks/concorde/ui";
 import { LitElement } from "lit";
 import "./js/theme-generator.js";
 import "./js/theme-preview/theme-preview.ts";
