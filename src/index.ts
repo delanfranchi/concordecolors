@@ -20,7 +20,7 @@ export class SonicComponent extends LitElement {
       }
 
       sonic-theme {
-        padding: 1rem 4rem;
+        padding: 1rem clamp(4vw, 4vw, 4rem);
       }
 
       .btn-container {
@@ -64,14 +64,18 @@ export class SonicComponent extends LitElement {
     return html`
       <sonic-theme theme="auto" background color>
         <div class="grid gap-8">
-            <header class=" flex gap-4  items-center">
-              <div class="font-bold mb-3 leading-[.8em] text-5xl gap-4">
-                concorde colors
+            <header class="lg:my-10 flex  flex-wrap gap-5  items-end">
+            <div>
+              <div class="  text-5xl  lg:text-6xl gap-4 leading-none">
+              <span class="font-extrabold">concorde</span> <span >colors</span>
               </div>
-              <div class="flex gap-3 items-center">
+              <div class="text-xl">Semantic colors for concorde design system.</div>
+            </div>
+              <div class="flex gap-3 items-center ">
                 <sonic-button
-                  type="primary"
+                  type="neutral"
                   variant="outline"
+                  size="sm"
                   @click=${() => {
                     this.themeGenerator?._randomTheme();
                   }}

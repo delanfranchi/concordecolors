@@ -36,12 +36,12 @@ export class ThemeGenerator extends LitElement {
         display: flex;
         position: relative;
         flex-direction: column;
-        gap: 0.55rem;
+        gap: 0.5rem;
       }
 
       .palette-main {
         display: flex;
-        border-radius: 0.8rem;
+        border-radius: .85rem;
         width: 100%;
         flex-grow: 1;
         position: relative;
@@ -49,7 +49,7 @@ export class ThemeGenerator extends LitElement {
       }
 
       .palette-main:focus-within {
-        box-shadow: 0 0 0 0.2rem #000;
+        box-shadow: 0 0 0 0.2rem yellow;
       }
 
       .text,
@@ -59,7 +59,6 @@ export class ThemeGenerator extends LitElement {
         text-align: center;
         appearance: none;
         color: #666;
-        border-radius: 1rem;
         font-family: monospace;
         font-size: 2rem;
         top: 0;
@@ -102,14 +101,13 @@ export class ThemeGenerator extends LitElement {
       }
 
       .shades {
-        width: calc(100% - 2.8rem);
         display: flex;
-        gap: 0.6rem;
-        margin: 0 1.4rem;
+        gap: 0.25rem;
+        margin: 0 .5rem;
         flex-shrink: 0;
       }
       .shades div {
-        border-radius: 99px;
+        border-radius: .2rem;
         aspect-ratio: 1;
         flex-grow: 1;
       }
@@ -209,18 +207,19 @@ export class ThemeGenerator extends LitElement {
   render() {
     const statusColor = this._getStatusColor();
     return html`
-      <div class="palette grid grid-cols-4 gap-8 items-start">
+      <div class="palette grid lg:grid-cols-4 gap-8 items-start">
         ${this.paletteHtml("primary", { shade: true, input: true })}
         ${this.paletteHtml("base", { shade: false, input: true })}
         ${this.paletteHtml("neutral", { shade: true, input: true })}
         ${this.paletteHtml("maxContrastNeutral", { shade: false, input: true })}
       </div>
-      <div class="grid grid-cols-4 gap-8 mt-8 items-start">
+      <div class="grid lg:grid-cols-4 gap-8 mt-8 items-start">
         ${Object.keys(statusColor).map(
-          (status: any) => html` ${this.paletteHtml(status, {
-            shade: true,
-            input: false,
-          })}`
+          (status: any) =>
+            html` ${this.paletteHtml(status, {
+              shade: true,
+              input: false,
+            })}`
         )}
       </div>
     `;
@@ -335,24 +334,13 @@ export class ThemeGenerator extends LitElement {
       const newStatusColor: Color = chroma.hsl(h, s, l);
 
       // update the status colors
-      this.theme[colorKey]["DEFAULT"] = newStatusColor.hex();
-      const shades: string[] = this._generateShades(newStatusColor);
-      this._setShades(shades, this.theme[colorKey]);
-      this._setContentColor(chroma(newStatusColor), this.theme[colorKey]);
+      this._generateShades(newStatusColor, colorKey);
     });
 
     // update the primary shades
-    const primaryShades = this._generateShades(primaryColor);
-    this._setShades(primaryShades, this.theme["primary"]);
-    this._setContentColor(primaryColor, this.theme["primary"]);
-    this.theme["primary"]["DEFAULT"] = this.primary;
-
+    this._generateShades(primaryColor, "primary");
     // update the neutral shades
-    const neutralShades = this._generateShades(chroma(neutralColor), true);
-    this._setShades(neutralShades, this.theme["neutral"]);
-    this._setContentColor(neutralColor, this.theme["neutral"]);
-
-    this.theme["neutral"]["DEFAULT"] = this.neutral;
+    this._generateShades(chroma(neutralColor), "neutral");
     this.theme["base-content"] = this.neutral;
     this.theme["base"] = this.base;
 
@@ -364,46 +352,32 @@ export class ThemeGenerator extends LitElement {
     );
   }
 
-  private _setContentColor(color: Color, targetObject: any): void {
-    // Get contrast color for text from the new color
-    if (chroma(color).luminance() < 0.4) {
-      targetObject["content"] = defaultColors.base;
-    } else {
-      targetObject["content"] = defaultColors.maxNeutral;
-    }
-  }
+  private _generateShades(color: Color, colorKey: string): void {
+    const isDarkColor = chroma(color).luminance() < 0.4;
+    const maxPadding = colorKey == "neutral" ? 0 : 0.15;
 
-  private _generateShades(color: Color, isNeutral: boolean = false): string[] {
-    const baseLuminance = chroma(this.base).luminance();
-    let minPadding = Math.min(0.3, 0.15 * (1 + (1 - baseLuminance)));
-    let maxPadding = 0.2;
-
-    if (isNeutral == true) {
-      maxPadding = 0;
-      minPadding = Math.min(0.08, 0.04 * (1 + (1 - baseLuminance)));
-    }
-
-    const shades = chroma
+    const scale = chroma
       .scale([this.base, color, this.maxContrastNeutral])
       .mode("lab")
       .correctLightness()
-      .padding([minPadding, maxPadding])
-      .colors(9);
+      .padding([0, maxPadding]);
 
-    const fiftyShade = chroma.mix(this.base, shades[0], 0.6).hex();
-    shades.unshift(fiftyShade);
+    let shades = {
+      50: scale(0.04).hex(),
+      100: scale(0.08).hex(),
+      200: scale(0.18).hex(),
+      300: scale(0.29).hex(),
+      400: scale(0.38).hex(),
+      500: scale(0.5).hex(),
+      600: scale(0.6).hex(),
+      700: scale(0.7).hex(),
+      800: scale(0.8).hex(),
+      900: scale(0.9).hex(),
+      DEFAULT: color.hex(),
+      content: isDarkColor ? defaultColors.base : defaultColors.maxNeutral,
+    };
 
-    return shades;
-  }
-
-  private _setShades(shades: any, targetObject: any): void {
-    if (shades.length > 0) {
-      shades.forEach((shade: string, index: number) => {
-        const keyName = index == 0 ? "50" : index + "00";
-        // const keyName = index + 1 + "00";
-        targetObject[keyName] = shade;
-      });
-    }
+    this.theme[colorKey] = shades;
   }
 
   private _setThemeCSS(theme: any): void {

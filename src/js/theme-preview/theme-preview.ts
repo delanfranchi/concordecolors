@@ -7,7 +7,7 @@ export class SonicComponent extends LitElement {
   static styles = [tailwind];
   render() {
     return html`
-      <div class="grid grid-cols-[minmax(0,2fr)_minmax(0,1.5fr)] gap-10">
+      <div class="grid lg:grid-cols-[minmax(0,2fr)_minmax(0,1.5fr)] gap-10">
         <div class="pt-10">
           <div class="flex gap-2 flex-wrap ">
             <sonic-button>Default</sonic-button>
@@ -93,8 +93,7 @@ export class SonicComponent extends LitElement {
 
                 <sonic-pop class="inline-block" slot="suffix">
                   <sonic-button shape="circle" variant="ghost">
-                    <sonic-icon size="lg" name="ellipsis-vertical"></sonic-icon
-                  ></sonic-button>
+                  ...</sonic-button>
                   <sonic-menu slot="content" class="min-w-20">
                     <sonic-menu-item>Mentions légales</sonic-menu-item>
                     <sonic-menu-item
@@ -156,7 +155,7 @@ export class SonicComponent extends LitElement {
             </sonic-fieldset>
             <sonic-fieldset form="formid" collapsible="true" collapsed="false">
               <sonic-legend
-                ><sonic-icon name="map-marker"></sonic-icon> Coordonnées
+                > Coordonnées
               </sonic-legend>
               <sonic-form-layout>
                 <sonic-input
@@ -174,7 +173,6 @@ export class SonicComponent extends LitElement {
 
             <div class="flex gap-3 items-center">
               <sonic-button submit type="primary">
-                <sonic-icon name="check"></sonic-icon>
                 S'inscrire
               </sonic-button>
               <sonic-tooltip
