@@ -52,7 +52,7 @@
 
 "@supersoniks/concorde@file:../la-billetterie/concorde/dist/supersoniks-concorde-core-1.0.8.tgz":
   version "1.0.8"
-  resolved "file:../la-billetterie/concorde/dist/supersoniks-concorde-core-1.0.8.tgz#63bbeed615655a64a254b20f84185fa6e388413a"
+  resolved "file:../la-billetterie/concorde/dist/supersoniks-concorde-core-1.0.8.tgz#03796e37a78f605528818951e171f5d1b02e8e8f"
   dependencies:
     "@lit-labs/motion" "^1.0.1"
     "@lit-labs/observers" "^1.0.1"

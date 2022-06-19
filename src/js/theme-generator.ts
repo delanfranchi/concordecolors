@@ -366,13 +366,13 @@ export class ThemeGenerator extends LitElement {
       50: scale(0.04).hex(),
       100: scale(0.08).hex(),
       200: scale(0.18).hex(),
-      300: scale(0.29).hex(),
-      400: scale(0.38).hex(),
+      300: scale(0.25).hex(),
+      400: scale(0.40).hex(),
       500: scale(0.5).hex(),
-      600: scale(0.6).hex(),
-      700: scale(0.7).hex(),
-      800: scale(0.8).hex(),
-      900: scale(0.9).hex(),
+      600: scale(0.65).hex(),
+      700: scale(0.8).hex(),
+      800: scale(0.9).hex(),
+      900: scale(1).hex(),
       DEFAULT: color.hex(),
       content: isDarkColor ? defaultColors.base : defaultColors.maxNeutral,
     };
@@ -399,7 +399,7 @@ export class ThemeGenerator extends LitElement {
           }
         });
       } else {
-        cssRules.push(`--sc-${colorName[0]}: ${colorName[1]};`);
+        cssRules.push(`--sc-${colorName[0]}: ${colorName[1]}`);
       }
     }
     this.themeCSS = cssRules.join(";");

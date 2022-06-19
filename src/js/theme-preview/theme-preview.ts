@@ -92,8 +92,8 @@ export class SonicComponent extends LitElement {
                 >
 
                 <sonic-pop class="inline-block" slot="suffix">
-                  <sonic-button shape="circle" variant="ghost">
-                  ...</sonic-button>
+                  <sonic-button shape="circle" variant="outline">
+                  ●</sonic-button>
                   <sonic-menu slot="content" class="min-w-20">
                     <sonic-menu-item>Mentions légales</sonic-menu-item>
                     <sonic-menu-item
