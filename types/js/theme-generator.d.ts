@@ -22,9 +22,7 @@ export declare class ThemeGenerator extends LitElement {
     private _commitValue;
     private _getStatusColor;
     private _generateTheme;
-    private _setContentColor;
     private _generateShades;
-    private _setShades;
     private _setThemeCSS;
 }
 declare global {
