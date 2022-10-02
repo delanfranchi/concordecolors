@@ -1,8 +1,8 @@
 import { html, css, LitElement } from "lit";
 
 import { customElement, property, state } from "lit/decorators.js";
-import { tailwindColors } from "./tailwind-colors.js";
-import { tailwind } from "./sonic-tailwind.js";
+import { tailwindColors } from "./tailwind/tailwind-colors.js";
+import { tailwind } from "./tailwind/sonic-tailwind.js";
 
 import chroma, { Color } from "chroma-js";
 
@@ -22,7 +22,7 @@ type paletteOptions = {
   input: boolean;
 };
 
-@customElement("sonic-theme-generator")
+@customElement("concorde-theme-generator")
 export class ThemeGenerator extends LitElement {
   static styles = [
     tailwind,
@@ -58,9 +58,8 @@ export class ThemeGenerator extends LitElement {
         padding: 2rem 1rem;
         text-align: center;
         appearance: none;
-        color: #666;
         font-family: monospace;
-        font-size: 2rem;
+        font-size:1.15rem;
         top: 0;
         left: 0;
         height: 100%;
@@ -87,10 +86,11 @@ export class ThemeGenerator extends LitElement {
         background-color: #ccc;
       }
       .legend {
-        font-size: 0.85rem;
+        font-size: 0.75rem;
         font-family: consolas;
         position: absolute;
-        bottom: 0.65rem;
+        bottom: 0.9rem;
+        line-height: 1;
         left: 50%;
         transform: translateX(-50%);
         opacity: 0.5;
@@ -102,12 +102,11 @@ export class ThemeGenerator extends LitElement {
 
       .shades {
         display: flex;
-        gap: 0.25rem;
-        margin: 0 .5rem;
+        gap: 3px;
         flex-shrink: 0;
       }
       .shades div {
-        border-radius: .2rem;
+        border-radius: 99px;
         aspect-ratio: 1;
         flex-grow: 1;
       }
@@ -207,21 +206,64 @@ export class ThemeGenerator extends LitElement {
   render() {
     const statusColor = this._getStatusColor();
     return html`
-      <div class="palette grid lg:grid-cols-4 gap-8 items-start">
-        ${this.paletteHtml("primary", { shade: true, input: true })}
-        ${this.paletteHtml("base", { shade: false, input: true })}
-        ${this.paletteHtml("neutral", { shade: true, input: true })}
-        ${this.paletteHtml("maxContrastNeutral", { shade: false, input: true })}
-      </div>
-      <div class="grid lg:grid-cols-4 gap-8 mt-8 items-start">
-        ${Object.keys(statusColor).map(
-          (status: any) =>
-            html` ${this.paletteHtml(status, {
-              shade: true,
-              input: false,
-            })}`
-        )}
-      </div>
+      <div class="flex flex-wrap gap-x-10  gap-y-4" formDataProvider="themeSettings">
+        <div class="flex gap-2" >
+          <sonic-icon library="iconoir" name="3d-arc" size="2xl"></sonic-icon>
+          <div>
+            <div class="text-xl items-center font-bold mb-2">
+              Radius
+            </div>
+            <div class="flex gap-4">
+              <sonic-radio checked name="rounded" value="none" label="none"></sonic-radio>
+              <sonic-radio name="rounded" value="medium" label="medium"></sonic-radio>
+              <sonic-radio name="rounded" value="extra" label="extra"></sonic-radio>
+              <sonic-radio name="rounded" value="full" label="full"></sonic-radio>
+            </div>
+          </div>
+        </div>
+        <div class="flex gap-2" >
+          <sonic-icon library="iconoir" name="style-border" size="2xl"></sonic-icon>
+          <div>
+            <div class="text-xl flex gap-2 items-center font-bold mb-2">
+              Border
+            </div>
+            <div class="flex gap-4">
+              <sonic-radio checked name="border" value="thin" label="thin"></sonic-radio>
+              <sonic-radio name="border" value="medium" label="medium"></sonic-radio>
+              <sonic-radio name="border" value="large" label="large"></sonic-radio>
+            </div>
+          </div>
+        </div>
+        <div class="flex gap-2" >
+          <sonic-icon library="iconoir" name="three-stars" size="2xl"></sonic-icon>
+          <div>
+            <div class="text-xl flex gap-2 items-center font-bold mb-2">
+            Extras
+            </div>
+            <div class="flex gap-4">
+              <sonic-checkbox  label="flat" ></sonic-checkbox>
+              <sonic-checkbox label="input bordered" ></sonic-checkbox>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <sonic-divider align="left">Light mode</sonic-divider>
+        <div class="palette grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 items-start">
+          ${this.paletteHtml("primary", { shade: true, input: true })}
+          ${this.paletteHtml("base", { shade: false, input: true })}
+          ${this.paletteHtml("neutral", { shade: true, input: true })}
+          ${this.paletteHtml("maxContrastNeutral", { shade: false, input: true })}
+          ${Object.keys(statusColor).map(
+            (status: any) =>
+              html` ${this.paletteHtml(status, {
+                shade: true,
+                input: false,
+              })}`
+          )}
+        </div>
+        <sonic-divider align="left" >Dark mode</sonic-divider>
+
     `;
   }
 

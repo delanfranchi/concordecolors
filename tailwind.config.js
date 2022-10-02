@@ -11,6 +11,7 @@ module.exports = {
     "./index.html",
   ],
   theme: {
+   
     borderRadius: {
       none: "0",
       sm: "var(--sc-rounded-sm)",
@@ -116,6 +117,9 @@ module.exports = {
       fontFamily: {
         headings: ["var(--sc-font-family-headings)"],
         body: ["var(--sc-font-family-base)"],
+      },
+      borderWidth: {
+        DEFAULT: "var(--sc-border-width)",
       },
     },
   },

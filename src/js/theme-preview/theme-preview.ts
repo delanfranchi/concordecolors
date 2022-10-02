@@ -1,89 +1,89 @@
 import { html, LitElement } from "lit";
 import { customElement } from "lit/decorators.js";
-import { tailwind } from "../sonic-tailwind.js";
+import { tailwind } from "../tailwind/sonic-tailwind.js";
 
 @customElement("sonic-theme-preview")
 export class SonicComponent extends LitElement {
   static styles = [tailwind];
   render() {
     return html`
-      <div class="grid lg:grid-cols-[minmax(0,2fr)_minmax(0,1.5fr)] gap-10">
-        <div class="pt-10">
-          <div class="flex gap-2 flex-wrap ">
-            <sonic-button>Default</sonic-button>
-            <sonic-button type="primary">Primary</sonic-button>
-            <sonic-button type="neutral">Neutral</sonic-button>
-            <sonic-button type="warning">Warning</sonic-button>
-            <sonic-button type="info">Info</sonic-button>
-            <sonic-button type="success">Success</sonic-button>
-            <sonic-button type="danger">Danger</sonic-button>
-          </div>
-          <sonic-divider></sonic-divider>
-          <div class="flex gap-2 flex-wrap ">
-            <sonic-button variant="outline">Default</sonic-button>
-            <sonic-button variant="outline" type="primary"
-              >Primary</sonic-button
+      <div class="grid lg:grid-cols-4 gap-8 items-start">
+        <div class="grid grid-cols-1 gap-8 ">
+          <sonic-card>
+            <sonic-card-header label="Buttons"></sonic-card-header>
+            <sonic-card-main>
+              <div
+                class="grid grid-cols-[repeat(auto-fill,_minmax(7rem,_1fr))] gap-2 flex-wrap"
+              >
+                <sonic-button>Default</sonic-button>
+                <sonic-button type="primary">Primary</sonic-button>
+                <sonic-button type="neutral">Neutral</sonic-button>
+                <sonic-button type="warning">Warning</sonic-button>
+                <sonic-button type="info">Info</sonic-button>
+                <sonic-button type="success">Success</sonic-button>
+                <sonic-button type="danger">Danger</sonic-button>
+                <sonic-divider class="col-span-full">Divider <sonic-badge size="sm" type="info">8</sonic-badge></sonic-divider>
+                <sonic-button variant="outline">Default</sonic-button>
+                <sonic-button variant="outline" type="primary"
+                  >Primary</sonic-button
+                >
+                <sonic-button variant="outline" type="neutral"
+                  >Neutral</sonic-button
+                >
+                <sonic-button variant="outline" type="warning"
+                  >Warning</sonic-button
+                >
+                <sonic-button variant="outline" type="info">Info</sonic-button>
+                <sonic-button variant="outline" type="success"
+                  >Success</sonic-button
+                >
+                <sonic-button variant="outline" type="danger"
+                  >Danger</sonic-button
+                >
+              </div>
+            </sonic-card-main>
+          </sonic-card>
+          <sonic-card>
+            <sonic-alert class="mb-2" background label="Lorem ipsum dolor">
+              This address is already in use.
+            </sonic-alert>
+            <sonic-alert
+              status="success"
+              class="mb-2"
+              background
+              label="Lorem ipsum dolor"
             >
-            <sonic-button variant="outline" type="neutral"
-              >Neutral</sonic-button
+              This address is already in use.
+            </sonic-alert>
+            <sonic-alert
+              status="error"
+              class="mb-2"
+              background
+              label="Lorem ipsum dolor"
             >
-            <sonic-button variant="outline" type="warning"
-              >Warning</sonic-button
+              This address is already in use.
+            </sonic-alert>
+            <sonic-alert
+              status="warning"
+              class="mb-2"
+              background
+              label="Lorem ipsum dolor"
             >
-            <sonic-button variant="outline" type="info">Info</sonic-button>
-            <sonic-button variant="outline" type="success"
-              >Success</sonic-button
+              This address is already in use.
+            </sonic-alert>
+            <sonic-alert
+              status="info"
+              class="mb-2"
+              background
+              label="Lorem ipsum dolor"
             >
-            <sonic-button variant="outline" type="danger">Danger</sonic-button>
-          </div>
-
-          <sonic-divider
-            >Alerts <sonic-badge type="danger" size="xs">+5</sonic-badge></sonic-divider
-          >
-          <sonic-alert class="mb-2" background label="Lorem ipsum dolor">
-            This address is already in use.
-          </sonic-alert>
-          <sonic-alert
-            status="success"
-            class="mb-2"
-            background
-            label="Lorem ipsum dolor"
-          >
-            This address is already in use.
-          </sonic-alert>
-          <sonic-alert
-            status="error"
-            class="mb-2"
-            background
-            label="Lorem ipsum dolor"
-          >
-            This address is already in use.
-          </sonic-alert>
-          <sonic-alert
-            status="warning"
-            class="mb-2"
-            background
-            label="Lorem ipsum dolor"
-          >
-            This address is already in use.
-          </sonic-alert>
-          <sonic-alert
-            status="info"
-            class="mb-2"
-            background
-            label="Lorem ipsum dolor"
-          >
-            This address is already in use.
-          </sonic-alert>
+              This address is already in use.
+            </sonic-alert>
+          </sonic-card>
         </div>
+
         <sonic-div formDataProvider="creation_compte">
-          <form
-            action="/inscription?lang=fr"
-            method="POST"
-            class="mb-20"
-            accept-charset="UTF-8"
-            id="youpla"
-          >
+          <form class="mb-20" accept-charset="UTF-8">
             <sonic-fieldset form="formid" collapsible="true" collapsed="false">
               <sonic-legend>
                 Informations personnelles
@@ -93,7 +93,8 @@ export class SonicComponent extends LitElement {
 
                 <sonic-pop class="inline-block" slot="suffix">
                   <sonic-button shape="circle" variant="outline">
-                  ●</sonic-button>
+                    ●</sonic-button
+                  >
                   <sonic-menu slot="content" class="min-w-20">
                     <sonic-menu-item>Mentions légales</sonic-menu-item>
                     <sonic-menu-item
@@ -125,7 +126,6 @@ export class SonicComponent extends LitElement {
                   name="date_naissance"
                   type="date"
                 ></sonic-input>
-
                 <sonic-divider></sonic-divider>
                 <sonic-input
                   autocomplete="email"
@@ -154,9 +154,7 @@ export class SonicComponent extends LitElement {
               </sonic-form-layout>
             </sonic-fieldset>
             <sonic-fieldset form="formid" collapsible="true" collapsed="false">
-              <sonic-legend
-                > Coordonnées
-              </sonic-legend>
+              <sonic-legend> Coordonnées </sonic-legend>
               <sonic-form-layout>
                 <sonic-input
                   autocomplete="postal-code"
@@ -172,9 +170,7 @@ export class SonicComponent extends LitElement {
             </sonic-fieldset>
 
             <div class="flex gap-3 items-center">
-              <sonic-button submit type="primary">
-                S'inscrire
-              </sonic-button>
+              <sonic-button submit type="primary"> S'inscrire </sonic-button>
               <sonic-tooltip
                 class="inline-flex"
                 tooltipText="Vous êtes sûr(e) ? 🙄"
@@ -185,7 +181,6 @@ export class SonicComponent extends LitElement {
               </sonic-tooltip>
             </div>
           </form>
-
         </sonic-div>
       </div>
     `;

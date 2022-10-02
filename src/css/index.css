@@ -1,6 +1,6 @@
-sonic-theme {
-  --sc-btn-rounded: 9999px;
-}
 body {
-  overflow-x: hidden;
+  font-family: 'Inter Tight', sans-serif;
+  margin:0;
+  padding:0;
 }
+
