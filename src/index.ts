@@ -2,7 +2,7 @@ import "@supersoniks/concorde/core";
 import { html, LitElement, css } from "lit";
 import { customElement } from "lit/decorators.js";
 import { tailwind } from "./js/tailwind/sonic-tailwind.js";
-import "./js/_configuration.js";
+import "./js/pages/configuration";
 
 
 @customElement("concorde-app")
@@ -18,10 +18,9 @@ export class SonicComponent extends LitElement {
 
   render() {
     return html`
-      <sonic-theme theme="auto" background color  class="py-4 px-5">
-        <div class="border-b flex gap-8 py-3">
-          
-          <div class="text-4xl font-bold ">
+      <sonic-theme theme="auto" background color class="py-4 px-5">
+        <div class="border-b flex gap-8 py-3 mb-8">
+          <div class="text-4xl font-bold">
             <sonic-link href="/" variant="unstyled">
               concorde
             </sonic-link>
@@ -40,13 +39,13 @@ export class SonicComponent extends LitElement {
         </div>
         <sonic-router>
           <template data-route="/$" >
+            <concorde-configuration></concorde-configuration>
             Hello world
           </template>
           <template data-route="/#documentation" >
             Coming soon
           </template>
           <template data-route="/#configuration" >
-            <concorde-configuration></concorde-configuration>
           </template>
         </sonic-router>
       </sonic-theme>
