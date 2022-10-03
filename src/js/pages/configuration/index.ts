@@ -11,7 +11,7 @@ export class configuration extends LitElement {
 
   render() {
     return html`
-      <div class="grid grid-cols-[24rem,_auto] gap-10">
+      <div class="grid grid-cols-[18rem,_auto] gap-10">
         <concorde-configuration-form></concorde-configuration-form>
         <div>
           <sonic-theme-generator></sonic-theme-generator>

@@ -110,17 +110,13 @@ export class configurationForm extends LitElement {
               label="thin"
             ></sonic-radio>
             <sonic-radio
+            checked
               class="min-w-[4rem]"
               name="border"
               value="medium"
               label="medium"
             ></sonic-radio>
-            <sonic-radio
-              class="min-w-[4rem]"
-              name="border"
-              value="large"
-              label="large"
-            ></sonic-radio>
+        
           </div>
         </div>
         <div class="flex items-center gap-2 font-bold text-xl mb-2">
