@@ -117,6 +117,7 @@ module.exports = {
       fontFamily: {
         headings: ["var(--sc-font-family-headings)"],
         body: ["var(--sc-font-family-base)"],
+        monospace : ["var(--sc-font-family-monospace, consolas, monospace)"],
       },
       borderWidth: {
         DEFAULT: "var(--sc-border-width)",

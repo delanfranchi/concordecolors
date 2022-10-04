@@ -1,13 +1,13 @@
-import "@supersoniks/concorde/core";
-import { html, LitElement, css } from "lit";
-import { customElement, state } from "lit/decorators.js";
-import { tailwind } from "./tailwind/sonic-tailwind.js";
-import { query } from "lit/decorators.js";
-import { unsafeHTML } from "lit/directives/unsafe-html.js";
+import '@supersoniks/concorde/core';
+import {html, LitElement, css} from 'lit';
+import {customElement, state} from 'lit/decorators.js';
+import {tailwind} from './tailwind/sonic-tailwind.js';
+import {query} from 'lit/decorators.js';
+import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 
-import "./theme-preview/theme-preview.ts";
+import './theme-preview/theme-preview.ts';
 
-@customElement("concorde-configuration")
+@customElement('concorde-configuration')
 export class SonicComponent extends LitElement {
   static styles = [
     tailwind,
@@ -55,16 +55,16 @@ export class SonicComponent extends LitElement {
   ];
 
   @state() hasPressedSpace: boolean = false;
-  @query("sonic-theme-generator") themeGenerator: any;
-  @query("sonic-theme") themePreview: any;
-  @query("#modalCode") modalCode: any;
-  @query("#textarea-css") textareaCSS!: HTMLTextAreaElement;
-  @query("#textarea-tailwind-concorde") textareaTailwindConcorde!: HTMLTextAreaElement;
-  @query("#textarea-tailwind") textareaTailwind!: HTMLTextAreaElement;
+  @query('sonic-theme-generator') themeGenerator: any;
+  @query('sonic-theme') themePreview: any;
+  @query('#modalCode') modalCode: any;
+  @query('#textarea-css') textareaCSS!: HTMLTextAreaElement;
+  @query('#textarea-tailwind-concorde')
+  textareaTailwindConcorde!: HTMLTextAreaElement;
+  @query('#textarea-tailwind') textareaTailwind!: HTMLTextAreaElement;
 
   render() {
     return html`
-
       <div class="flex flex-wrap gap-x-10  gap-y-4" formDataProvider="themeSettings">
         <div class="flex gap-2" >
           <sonic-icon library="iconoir" name="3d-arc" size="2xl"></sonic-icon>
@@ -97,7 +97,7 @@ export class SonicComponent extends LitElement {
           <sonic-icon library="iconoir" name="three-stars" size="2xl"></sonic-icon>
           <div>
             <div class="text-xl flex gap-2 items-center font-bold mb-2">
-            Extras
+              Extras
             </div>
             <div class="flex gap-4">
               <sonic-checkbox  label="flat" ></sonic-checkbox>
@@ -120,7 +120,7 @@ export class SonicComponent extends LitElement {
                       ? html` <div class="text-sm text-neutral-400 mb-1">
                           Or press space
                         </div>`
-                      : ""
+                      : ''
                   }
                   <sonic-button
                     type="neutral"
@@ -144,8 +144,8 @@ export class SonicComponent extends LitElement {
                 
                 minWidth="8.5rem"
                   @click=${
-                  this.openModalCode
-                } size="sm"> <span class="font-bold uppercase">Export code</span></sonic-button>
+                    this.openModalCode
+                  } size="sm"> <span class="font-bold uppercase">Export code</span></sonic-button>
                 <sonic-modal
                   id="modalCode"
                   maxWidth="80rem"
@@ -195,7 +195,7 @@ export class SonicComponent extends LitElement {
   connectedCallback(): void {
     super.connectedCallback();
     // on key press space, generate a new color and update the input
-    window.addEventListener("keydown", (e: KeyboardEvent) => {
+    window.addEventListener('keydown', (e: KeyboardEvent) => {
       if (e.keyCode === 32) {
         e.preventDefault();
         this.themeGenerator?._randomTheme();
@@ -212,11 +212,11 @@ export class SonicComponent extends LitElement {
 
   _handleNewTheme(): void {
     if (this.themeGenerator?.themeCSS != null) {
-      this.themePreview.setAttribute("style", this.themeGenerator?.themeCSS);
+      this.themePreview.setAttribute('style', this.themeGenerator?.themeCSS);
 
       this.textareaCSS.value = `sonic-theme {\n${this.themeGenerator?.themeCSS
-        .replaceAll(";", ";\n")
-        .replaceAll("--sc", "  --sc")}\n}`;
+        .replaceAll(';', ';\n')
+        .replaceAll('--sc', '  --sc')}\n}`;
 
       if (this.themeGenerator?.theme) {
         const tailwindConfig = {
@@ -227,102 +227,103 @@ export class SonicComponent extends LitElement {
         this.textareaTailwind.value = JSON.stringify(tailwindConfig, null, 2);
       }
 
-     const tailwindConcordeConf =  {
-      colors : {
-        transparent: "transparent",
-        current: "currentColor",
-        neutral: {
-          0: "var(--sc-base)",
-          50: "var(--sc-base-50)",
-          100: "var(--sc-base-100)",
-          200: "var(--sc-base-200)",
-          300: "var(--sc-base-300)",
-          400: "var(--sc-base-400)",
-          500: "var(--sc-base-500)",
-          600: "var(--sc-base-600)",
-          700: "var(--sc-base-700)",
-          800: "var(--sc-base-800)",
-          900: "var(--sc-base-900)",
-          content: "var(--sc-base-content)",
+      const tailwindConcordeConf = {
+        colors: {
+          transparent: 'transparent',
+          current: 'currentColor',
+          neutral: {
+            0: 'var(--sc-base)',
+            50: 'var(--sc-base-50)',
+            100: 'var(--sc-base-100)',
+            200: 'var(--sc-base-200)',
+            300: 'var(--sc-base-300)',
+            400: 'var(--sc-base-400)',
+            500: 'var(--sc-base-500)',
+            600: 'var(--sc-base-600)',
+            700: 'var(--sc-base-700)',
+            800: 'var(--sc-base-800)',
+            900: 'var(--sc-base-900)',
+            content: 'var(--sc-base-content)',
+          },
+          primary: {
+            50: 'var(--sc-primary-50)',
+            100: 'var(--sc-primary-100)',
+            200: 'var(--sc-primary-200)',
+            300: 'var(--sc-primary-300)',
+            400: 'var(--sc-primary-400)',
+            500: 'var(--sc-primary-500)',
+            600: 'var(--sc-primary-600)',
+            700: 'var(--sc-primary-700)',
+            800: 'var(--sc-primary-800)',
+            900: 'var(--sc-primary-900)',
+            DEFAULT: 'var(--sc-primary)',
+            content: 'var(--sc-primary-content)',
+          },
+          success: {
+            50: 'var(--sc-success-50)',
+            100: 'var(--sc-success-100)',
+            200: 'var(--sc-success-200)',
+            300: 'var(--sc-success-300)',
+            400: 'var(--sc-success-400)',
+            500: 'var(--sc-success-500)',
+            600: 'var(--sc-success-600)',
+            700: 'var(--sc-success-700)',
+            800: 'var(--sc-success-800)',
+            900: 'var(--sc-success-900)',
+            DEFAULT: 'var(--sc-success)',
+            content: 'var(--sc-success-content)',
+          },
+          danger: {
+            50: 'var(--sc-danger-50)',
+            200: 'var(--sc-danger-200)',
+            300: 'var(--sc-danger-300)',
+            400: 'var(--sc-danger-400)',
+            500: 'var(--sc-danger-500)',
+            600: 'var(--sc-danger-600)',
+            700: 'var(--sc-danger-700)',
+            800: 'var(--sc-danger-800)',
+            900: 'var(--sc-danger-900)',
+            DEFAULT: 'var(--sc-danger)',
+            content: 'var(--sc-danger-content)',
+          },
+          warning: {
+            50: 'var(--sc-warning-50)',
+            200: 'var(--sc-warning-200)',
+            300: 'var(--sc-warning-300)',
+            400: 'var(--sc-warning-400)',
+            500: 'var(--sc-warning-500)',
+            600: 'var(--sc-warning-600)',
+            700: 'var(--sc-warning-700)',
+            800: 'var(--sc-warning-800)',
+            900: 'var(--sc-warning-900)',
+            DEFAULT: 'var(--sc-warning)',
+            content: 'var(--sc-warning-content)',
+          },
+          info: {
+            50: 'var(--sc-info-50)',
+            200: 'var(--sc-info-200)',
+            300: 'var(--sc-info-300)',
+            400: 'var(--sc-info-400)',
+            500: 'var(--sc-info-500)',
+            600: 'var(--sc-info-600)',
+            700: 'var(--sc-info-700)',
+            800: 'var(--sc-info-800)',
+            900: 'var(--sc-info-900)',
+            DEFAULT: 'var(--sc-info)',
+            content: 'var(--sc-info-content)',
+          },
+          contrast: {
+            DEFAULT: 'var(--sc-contrast)',
+            content: 'var(--sc-contrast-content)',
+          },
         },
-        primary: {
-          50: "var(--sc-primary-50)",
-          100: "var(--sc-primary-100)",
-          200: "var(--sc-primary-200)",
-          300: "var(--sc-primary-300)",
-          400: "var(--sc-primary-400)",
-          500: "var(--sc-primary-500)",
-          600: "var(--sc-primary-600)",
-          700: "var(--sc-primary-700)",
-          800: "var(--sc-primary-800)",
-          900: "var(--sc-primary-900)",
-          DEFAULT: "var(--sc-primary)",
-          content: "var(--sc-primary-content)",
-        },
-        success: {
-          50: "var(--sc-success-50)",
-          100: "var(--sc-success-100)",
-          200: "var(--sc-success-200)",
-          300: "var(--sc-success-300)",
-          400: "var(--sc-success-400)",
-          500: "var(--sc-success-500)",
-          600: "var(--sc-success-600)",
-          700: "var(--sc-success-700)",
-          800: "var(--sc-success-800)",
-          900: "var(--sc-success-900)",
-          DEFAULT: "var(--sc-success)",
-          content: "var(--sc-success-content)",
-        },
-        danger: {
-          50: "var(--sc-danger-50)",
-          200: "var(--sc-danger-200)",
-          300: "var(--sc-danger-300)",
-          400: "var(--sc-danger-400)",
-          500: "var(--sc-danger-500)",
-          600: "var(--sc-danger-600)",
-          700: "var(--sc-danger-700)",
-          800: "var(--sc-danger-800)",
-          900: "var(--sc-danger-900)",
-          DEFAULT: "var(--sc-danger)",
-          content: "var(--sc-danger-content)",
-        },
-        warning: {
-          50: "var(--sc-warning-50)",
-          200: "var(--sc-warning-200)",
-          300: "var(--sc-warning-300)",
-          400: "var(--sc-warning-400)",
-          500: "var(--sc-warning-500)",
-          600: "var(--sc-warning-600)",
-          700: "var(--sc-warning-700)",
-          800: "var(--sc-warning-800)",
-          900: "var(--sc-warning-900)",
-          DEFAULT: "var(--sc-warning)",
-          content: "var(--sc-warning-content)",
-        },
-        info: {
-          50: "var(--sc-info-50)",
-          200: "var(--sc-info-200)",
-          300: "var(--sc-info-300)",
-          400: "var(--sc-info-400)",
-          500: "var(--sc-info-500)",
-          600: "var(--sc-info-600)",
-          700: "var(--sc-info-700)",
-          800: "var(--sc-info-800)",
-          900: "var(--sc-info-900)",
-          DEFAULT: "var(--sc-info)",
-          content: "var(--sc-info-content)",
-        },
-        contrast: {
-          DEFAULT: "var(--sc-contrast)",
-          content: "var(--sc-contrast-content)",
-        }
-      }
-      }
+      };
 
-      this.textareaTailwindConcorde.value = JSON.stringify(tailwindConcordeConf, null, 2);
-
-
-
+      this.textareaTailwindConcorde.value = JSON.stringify(
+        tailwindConcordeConf,
+        null,
+        2
+      );
     }
   }
 }

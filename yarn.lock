@@ -56,9 +56,9 @@
     picomatch "^2.2.2"
 
 "@supersoniks/concorde@^1.1.27":
-  version "1.1.28"
-  resolved "https://registry.yarnpkg.com/@supersoniks/concorde/-/concorde-1.1.28.tgz#3490629ab02be359c0ef1a5ef84fa31d01d68241"
-  integrity sha512-P0Ntu41WauXhtbgGfxWr1YBqM0XKrDi04ZzUjen8JIuoHHixVqChmIadMzT7GxfeHqQvB1tGuY2hAMqcB/axxQ==
+  version "1.1.30"
+  resolved "https://registry.yarnpkg.com/@supersoniks/concorde/-/concorde-1.1.30.tgz#5a6525eb1bcf3c4c35ce1ca2f91a374de989f5f6"
+  integrity sha512-c++Dna6MEeyHF5cmO6fsdgCDBDTSGb3IPP7WJJJcbU5q1WqCZEfYx1q5jhRXCYHoOmkc5Y/2/Y4y9r4qZHdwHA==
   dependencies:
     "@lit-labs/motion" "^1.0.1"
     "@lit-labs/observers" "^1.0.1"
