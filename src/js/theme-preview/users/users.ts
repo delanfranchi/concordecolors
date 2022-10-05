@@ -1,7 +1,7 @@
 import '@supersoniks/concorde/core';
 import {html, LitElement} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
-import {tailwind} from '../tailwind/sonic-tailwind.js';
+import {tailwind} from '@concorde-app/tailwind';
 import Subscriber from '@supersoniks/concorde/core/mixins/Subscriber';
 
 @customElement('concorde-preview-users')
@@ -10,7 +10,7 @@ export class users extends Subscriber(LitElement) {
   render() {
     return html`
   <sonic-card>
-  <sonic-list  fetch serviceurl="https://reqres.in" dataprovider="api/users" key="data" class="grid grid-cols-1 gap-1  ">
+  <sonic-list  fetch serviceurl="https://reqres.in" dataprovider="api/users" key="data" class="grid grid-cols-1  ">
       <template><concorde-preview-user-item></sonic-preview-user-item></template>
   </sonic-list>
   </sonic-card>`;
@@ -28,9 +28,12 @@ export class user extends Subscriber(LitElement) {
   @property({type: String}) id = '';
 
   render() {
-    console.log(this.props);
-    return html`<div
-      class="flex items-center gap-2 rounded-md hover:bg-neutral-50 -mx-2 p-2"
+    // const isOdd = this.props._key_ % 2;
+    const isfirst = this.props._key_ == "0";
+    return html`
+    ${!isfirst ? html`<div class="border-t my-1 border-neutral-100"></div>` : ''}
+    <div
+      class="flex items-center gap-2 rounded-md hover:bg-neutral-100 -mx-2 p-2"
     >
       <sonic-image
         data-bind=""

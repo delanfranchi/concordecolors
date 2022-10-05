@@ -13,10 +13,11 @@ export class SonicComponent extends LitElement {
     * {
       box-sizing: border-box;
     }
-      sonic-theme{
-        --sc-font-family-base:'Inter Tight', sans-serif;
-        --sc-border-width:max(2px, 0.15rem);
-      }`
+    sonic-theme{
+      --sc-font-family-base: "Inter var", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",  Arial, sans-serif !important;
+      --sc-border-width:max(2px, 0.15rem);
+      font-feature-settings: "case", "calt", "ss03";
+    }`
   ];
 
   render() {

@@ -21,7 +21,9 @@
     "forceConsistentCasingInFileNames": true,
     "useDefineForClassFields": false,
     "skipLibCheck": true,
+    
     "paths": {
+      "@concorde-app/tailwind" : ["src/js/tailwind/sonic-tailwind.ts"],
       "@supersoniks/concorde/functional/date": [
         "../node_modules/@supersoniks/concorde/core/components/functional/date/date.js"
       ],

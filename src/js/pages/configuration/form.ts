@@ -1,7 +1,7 @@
 import '@supersoniks/concorde/core';
 import {html, LitElement, css} from 'lit';
 import {customElement} from 'lit/decorators.js';
-import {tailwind} from '../../tailwind/sonic-tailwind.js';
+import {tailwind} from '@concorde-app/tailwind';
 import {defaultColors} from './generator';
 import chroma from "chroma-js";
 import '../../theme-preview/theme-preview';

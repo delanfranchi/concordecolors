@@ -1,7 +1,7 @@
 import '@supersoniks/concorde/core';
 import {html, LitElement} from 'lit';
 import {customElement} from 'lit/decorators.js';
-import {tailwind} from '../../tailwind/sonic-tailwind.js';
+import {tailwind} from '@concorde-app/tailwind';
 
 import './form.ts';
 import './generator.ts';
