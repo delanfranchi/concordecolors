@@ -41,11 +41,40 @@ export class ThemeGenerator extends Subscriber(LitElement) {
   @state() tailwindClosestPrimary = "";
 
   @state() settings: any = {}
-  @state() theme: any = {}
+  @state() theme: any = {
+    base: this.base,
+    "base-content": this.neutral,
+    primary: {
+      DEFAULT: this.primary,
+      content: defaultColors.base,
+    },
+    neutral: {
+      DEFAULT: this.neutral,
+      content: defaultColors.base,
+    },
+    info: {
+      DEFAULT: defaultColors.info,
+      content: defaultColors.base,
+    },
+    success: {
+      DEFAULT: defaultColors.success,
+      content: defaultColors.base,
+    },
+    warning: {
+      DEFAULT: defaultColors.warning,
+      content: defaultColors.base,
+    },
+    danger: {
+      DEFAULT: defaultColors.danger,
+      content: defaultColors.base,
+    },
+  };
   @property({ type: String }) themeCSS ?:string;
   
   @queryAssignedElements({selector: "sonic-theme"})
   sonicTheme!:Array<HTMLElement>;
+
+
 
   render() {
     return html`<slot @slotchange=${this.mainSlotChange}></slot>`;

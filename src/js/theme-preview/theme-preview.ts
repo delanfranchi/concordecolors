@@ -15,14 +15,17 @@ export class SonicComponent extends LitElement {
         </div>
         <concorde-preview-users></concorde-preview-users>
         <sonic-card>
-          <sonic-button>Default</sonic-button>
-          <sonic-button type="primary">Primary</sonic-button>
-          <sonic-button type="neutral">Neutral</sonic-button>
-          <sonic-button type="warning">Warning</sonic-button>
-          <sonic-button type="info">Info</sonic-button>
-          <sonic-button type="success">Success</sonic-button>
-          <sonic-button type="danger">Danger</sonic-button>
-        </sonic-card>
+          <div class="grid grid-cols-2 gap-x-3 gap-2 ">
+
+            <sonic-button>Default</sonic-button>
+            <sonic-button type="primary">Primary</sonic-button>
+            <sonic-button type="neutral">Neutral</sonic-button>
+            <sonic-button type="warning">Warning</sonic-button>
+            <sonic-button type="info">Info</sonic-button>
+            <sonic-button type="success">Success</sonic-button>
+            <sonic-button type="danger">Danger</sonic-button>
+          </div>
+          </sonic-card>
         <sonic-card>
             <sonic-alert class="mb-2" background label="Lorem ipsum dolor">
               This address is already in use.
