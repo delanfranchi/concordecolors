@@ -260,6 +260,14 @@ export class ThemeGenerator extends Subscriber(LitElement) {
       cssRules.push(`--sc-input-bg:transparent`);
       cssRules.push(`--sc-input-border-color:var(--sc-base-content)`);
     }
+    // inputBordered
+    if(this.flat){
+      cssRules.push(`--sc-shadow-xs:none;`);
+      cssRules.push(`--sc-shadow-sm:none;`);
+      cssRules.push(`--sc-shadow-lg:none;`);
+      cssRules.push(`--sc-shadow-xm:none;`);
+      cssRules.push(`--sc-shadow:none;`);
+    }
     
     this.themeCSS = cssRules.join(";");
   }

@@ -2,9 +2,9 @@ import '@supersoniks/concorde/core';
 import {html, LitElement, css} from 'lit';
 import {customElement} from 'lit/decorators.js';
 import {tailwind} from '../../tailwind/sonic-tailwind.js';
-import {defaultColors} from './generator.ts';
+import {defaultColors} from './generator';
 import chroma from "chroma-js";
-import '../../theme-preview/theme-preview.ts';
+import '../../theme-preview/theme-preview';
 
 @customElement('concorde-configuration-form')
 export class configurationForm extends LitElement {
@@ -145,7 +145,6 @@ export class configurationForm extends LitElement {
               label="thin"
             ></sonic-radio>
             <sonic-radio
-              checked
               class="min-w-[4rem]"
               name="border"
               value="md"

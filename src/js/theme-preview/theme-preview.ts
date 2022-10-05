@@ -1,9 +1,8 @@
 import {html, LitElement} from 'lit';
 import {customElement} from 'lit/decorators.js';
 import {tailwind} from '../tailwind/sonic-tailwind.js';
-import  './movie-card.js';
-import  './users.js';
-
+import './movie-card.js';
+import './users.js';
 
 @customElement('sonic-theme-preview')
 export class SonicComponent extends LitElement {
@@ -13,8 +12,18 @@ export class SonicComponent extends LitElement {
       <div class="grid lg:grid-cols-4 gap-8 items-start">
         <div class="grid grid-cols-1 gap-8 ">
           <concorde-movie-card></concorde-movie-card>
-          <concorde-preview-users></concorde-preview-users>
-          <sonic-card>
+        </div>
+        <concorde-preview-users></concorde-preview-users>
+        <sonic-card>
+          <sonic-button>Default</sonic-button>
+          <sonic-button type="primary">Primary</sonic-button>
+          <sonic-button type="neutral">Neutral</sonic-button>
+          <sonic-button type="warning">Warning</sonic-button>
+          <sonic-button type="info">Info</sonic-button>
+          <sonic-button type="success">Success</sonic-button>
+          <sonic-button type="danger">Danger</sonic-button>
+        </sonic-card>
+        <sonic-card>
             <sonic-alert class="mb-2" background label="Lorem ipsum dolor">
               This address is already in use.
             </sonic-alert>
@@ -51,7 +60,6 @@ export class SonicComponent extends LitElement {
               This address is already in use.
             </sonic-alert>
           </sonic-card>
-        </div>
 
         <sonic-div formDataProvider="creation_compte">
           <form class="mb-20" accept-charset="UTF-8">

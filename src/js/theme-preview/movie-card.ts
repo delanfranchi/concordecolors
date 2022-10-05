@@ -48,6 +48,7 @@ export class movieCard extends LitElement {
                 variant="outline"
                 class="ml-auto"
               >
+              
                 <sonic-icon library="iconoir" name="heart"></sonic-icon>
               </sonic-button>
             </div>

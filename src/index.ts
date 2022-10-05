@@ -10,6 +10,9 @@ export class SonicComponent extends LitElement {
   static styles = [
     tailwind,
     css`
+    * {
+      box-sizing: border-box;
+    }
       sonic-theme{
         --sc-font-family-base:'Inter Tight', sans-serif;
         --sc-border-width:max(2px, 0.15rem);
@@ -40,7 +43,6 @@ export class SonicComponent extends LitElement {
         <sonic-router>
           <template data-route="/$" >
             <concorde-configuration></concorde-configuration>
-            Hello world
           </template>
           <template data-route="/#documentation" >
             Coming soon
