@@ -3,7 +3,7 @@ import {html, LitElement, css} from 'lit';
 import {customElement} from 'lit/decorators.js';
 import {tailwind} from '@concorde-app/tailwind';
 import {defaultColors} from './generator';
-import chroma from "chroma-js";
+import chroma from 'chroma-js';
 import '../../theme-preview/theme-preview';
 
 @customElement('concorde-configuration-form')
@@ -11,7 +11,7 @@ export class configurationForm extends LitElement {
   static styles = [tailwind, css``];
 
   //select all the current text input on click from outside
-  handleColorClick(e:MouseEvent){
+  handleColorClick(e: MouseEvent) {
     const input = e.target as HTMLInputElement;
     input.shadowRoot?.querySelector('input')?.select();
   }
@@ -25,7 +25,9 @@ export class configurationForm extends LitElement {
               size="sm"
               type="text"
               class="font-monospace"
-              @click=${(e:MouseEvent) => {this.handleColorClick(e)}}
+              @click=${(e: MouseEvent) => {
+                this.handleColorClick(e);
+              }}
               name="primary"
               label="primary"
             ></sonic-input>
@@ -37,12 +39,14 @@ export class configurationForm extends LitElement {
               value=${chroma.random().hex()}
             ></sonic-input>
           </div>
-          <div class="flex gap-1 items-end">
+          <div class="flex gap-1 items-end hidden">
             <sonic-input
               size="sm"
               type="text"
-              class="font-monospace"
-              @click=${(e:MouseEvent) => {this.handleColorClick(e)}}
+              class="font-monospace "
+              @click=${(e: MouseEvent) => {
+                this.handleColorClick(e);
+              }}
               name="secondary"
               label="secondary"
             ></sonic-input>
@@ -59,26 +63,11 @@ export class configurationForm extends LitElement {
               size="sm"
               type="text"
               class="font-monospace"
-              @click=${(e:MouseEvent) => {this.handleColorClick(e)}}
-              name="base"
-              label="base"
-              ></sonic-input>
-              <sonic-input
-              value=${defaultColors.base}
-              size="2xs"
-              type="color"
-              class="overflow-hidden rounded-full shrink-0 mb-1 shadow-[0_0_0_1px_rgba(0,0,0,.1)]"
-              name="base"
-            ></sonic-input>
-          </div>
-          <div class="flex gap-1 items-end">
-            <sonic-input
-              size="sm"
-              type="text"
-              class="font-monospace"
-              @click=${(e:MouseEvent) => {this.handleColorClick(e)}}
+              @click=${(e: MouseEvent) => {
+                this.handleColorClick(e);
+              }}
               name="neutral"
-              label="neutral"
+              label="neutral/text"
             ></sonic-input>
             <sonic-input
               size="2xs"
@@ -93,8 +82,28 @@ export class configurationForm extends LitElement {
               size="sm"
               type="text"
               class="font-monospace"
+              @click=${(e: MouseEvent) => {
+                this.handleColorClick(e);
+              }}
+              name="base"
+              label="base/bg"
+            ></sonic-input>
+            <sonic-input
+              value=${defaultColors.base}
+              size="2xs"
+              type="color"
+              class="overflow-hidden rounded-full shrink-0 mb-1 shadow-[0_0_0_1px_rgba(0,0,0,.1)]"
+              name="base"
+            ></sonic-input>
+          </div>
+
+          <div class="flex gap-1 items-end">
+            <sonic-input
+              size="sm"
+              type="text"
+              class="font-monospace"
               name="maxContrastNeutral"
-              label="contrast neutral"
+              label="max contrast "
             ></sonic-input>
             <sonic-input
               value=${defaultColors.maxContrastNeutral}
@@ -150,7 +159,6 @@ export class configurationForm extends LitElement {
               value="md"
               label="medium"
             ></sonic-radio>
-            
           </div>
         </div>
         <div class="flex items-center gap-2 font-bold text-xl mb-2">extras</div>
