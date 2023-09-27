@@ -10,7 +10,7 @@ export declare const defaultColors: {
     maxContrastNeutral: string;
     neutral: string;
 };
-declare const ThemeGenerator_base: (new (...args: any[]) => import("@supersoniks/concorde/core/mixins/Subscriber").SubscriberInterface) & typeof LitElement;
+declare const ThemeGenerator_base: (new (...args: any[]) => import("@supersoniks/concorde/core/mixins/Subscriber").SubscriberInterface<import("@supersoniks/concorde/core/_types/types.js").CoreJSType>) & typeof LitElement;
 export declare class ThemeGenerator extends ThemeGenerator_base {
     static styles: import("lit").CSSResult;
     primary: string;
