@@ -5,7 +5,7 @@ import {tailwind} from '@concorde-app/tailwind';
 import Subscriber from '@supersoniks/concorde/core/mixins/Subscriber';
 
 @customElement('concorde-preview-users')
-export class users extends Subscriber(LitElement) {
+export class users extends Subscriber(LitElement, {} as any) {
   static styles = [tailwind];
   render() {
     return html`
@@ -26,52 +26,54 @@ export class user extends Subscriber(LitElement) {
   @property({type: String}) email = '';
   @property({type: String}) last_name = '';
   @property({type: String}) id = '';
+  @property({type: String}) _key_ = '';
 
   render() {
     // const isOdd = this.props._key_ % 2;
-    const isfirst = this.props._key_ == "0";
-    return html`
-    ${!isfirst ? html`<div class="border-t my-1 border-neutral-100"></div>` : ''}
-    <div
-      class="flex items-center gap-2 rounded-md hover:bg-neutral-100 -mx-2 p-2"
-    >
-      <sonic-image
-        data-bind=""
-        src=${this.avatar}
-        rounded="md"
-        ratio="1/1"
-        class="w-16 block"
-      ></sonic-image>
-      <div>
-        <div class="text-bold">
-          ${this.first_name} <span class="font-bold">${this.last_name}</span>
-        </div>
-        <span class="text-sm text-neutral-400"> ${this.email} </span>
-      </div>
-      <div class="ml-auto relative">
-        ${this.id == '2' || this.id == '5'
-          ? html`
-              <sonic-badge
-                type="danger"
-                size="2xs"
-                class="absolute left-0 -top-1 z-10"
-              >
-                ${this.id}</sonic-badge
-              >
-            `
-          : ''}
-        <sonic-button
+    const isfirst = this._key_ == '0';
+    return html` ${!isfirst
+        ? html`<div class="border-t my-1 border-neutral-100"></div>`
+        : ''}
+      <div
+        class="flex items-center gap-2 rounded-md hover:bg-neutral-100 -mx-2 p-2"
+      >
+        <sonic-image
           data-bind=""
-          href="mailto:${this.email}"
-          size="sm"
-          variant="outline"
-          shape="circle"
-          class="relative"
-          icon
-        >
-          <sonic-icon library="iconoir" name="chat-bubble"></sonic-icon>
-        </sonic-button>
-      </div>
-    </div>`;
+          src=${this.avatar}
+          rounded="md"
+          ratio="1/1"
+          class="w-16 block"
+        ></sonic-image>
+        <div>
+          <div class="text-bold">
+            ${this.first_name} <span class="font-bold">${this.last_name}</span>
+          </div>
+          <span class="text-sm text-neutral-400"> ${this.email} </span>
+        </div>
+        <div class="ml-auto relative">
+          ${this.id == '2' || this.id == '5'
+            ? html`
+                <sonic-badge
+                  type="danger"
+                  size="2xs"
+                  class="absolute left-0 -top-1 z-10"
+                >
+                  ${this.id}</sonic-badge
+                >
+              `
+            : ''}
+          <sonic-button
+            data-bind=""
+            href="mailto:${this.email}"
+            size="sm"
+            variant="outline"
+            shape="circle"
+            class="relative"
+            icon
+          >
+            <sonic-icon library="iconoir" name="chat-bubble"></sonic-icon>
+          </sonic-button>
+        </div>
+      </div>`;
   }
 }
