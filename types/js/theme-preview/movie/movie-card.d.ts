@@ -1,7 +1,6 @@
 import '@supersoniks/concorde/core';
 import { LitElement } from 'lit';
-import './js/pages/configuration';
-export declare class SonicComponent extends LitElement {
+export declare class movieCard extends LitElement {
     static styles: any[];
     render(): import("lit-html").TemplateResult<1>;
 }
