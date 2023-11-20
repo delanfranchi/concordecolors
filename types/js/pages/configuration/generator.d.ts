@@ -1,4 +1,4 @@
-import { LitElement, PropertyValueMap } from "lit";
+import { LitElement, PropertyValueMap } from 'lit';
 export declare const defaultColors: {
     primary: string;
     secondary: string;
@@ -18,8 +18,8 @@ export declare class ThemeGenerator extends ThemeGenerator_base {
     neutral: string;
     base: string;
     maxContrastNeutral: string;
-    rounded: "none" | 'md' | 'lg';
-    border: "sm" | 'md';
+    rounded: 'none' | 'md' | 'lg';
+    border: 'sm' | 'md';
     flat: boolean;
     inputBordered: boolean;
     buttonPills: boolean;
@@ -41,7 +41,7 @@ export declare class ThemeGenerator extends ThemeGenerator_base {
 }
 declare global {
     interface HTMLElementTagNameMap {
-        "concorde-theme-generator": ThemeGenerator;
+        'concorde-theme-generator': ThemeGenerator;
     }
 }
 export {};

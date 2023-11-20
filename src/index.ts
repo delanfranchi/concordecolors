@@ -45,7 +45,7 @@ export class SonicComponent extends LitElement {
         // set active attribute and remove after 2 seconds
         const targetElement = e.target;
         targetElement.setAttribute('active', '');
-        setTimeout((el = e.target) => {
+        setTimeout(() => {
           targetElement.removeAttribute('active');
         }, 800);
       }
